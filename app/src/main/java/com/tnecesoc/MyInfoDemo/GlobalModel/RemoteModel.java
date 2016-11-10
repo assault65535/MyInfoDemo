@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Created by Tnecesoc on 2016/11/5.
  */
-public abstract class RemoteModel<Argument> {
+public abstract class RemoteModel {
 
     private String url;
     private Map<String, String> parameters;

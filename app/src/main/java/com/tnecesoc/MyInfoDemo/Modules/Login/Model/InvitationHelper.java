@@ -1,6 +1,7 @@
 package com.tnecesoc.MyInfoDemo.Modules.Login.Model;
 
 import com.tnecesoc.MyInfoDemo.Bean.Container;
+import com.tnecesoc.MyInfoDemo.GlobalModel.Host;
 import com.tnecesoc.MyInfoDemo.GlobalModel.RemoteModel;
 import com.tnecesoc.MyInfoDemo.Utils.HttpUtil;
 
@@ -12,7 +13,7 @@ import java.util.Map;
  */
 public class InvitationHelper extends RemoteModel {
 
-    private static final String URL = "http://172.22.213.109:8080/check-invitation";
+    private static final String URL = Host.URL + "/check-invitation";
 
     public InvitationHelper(final String community, final String phone) {
         super(URL, new HashMap<String, String>(){{
