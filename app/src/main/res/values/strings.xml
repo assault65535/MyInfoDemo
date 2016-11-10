@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">MyInfoDemo</string>
+    <string name="gui_nickname">nickname</string>
+    <string name="gui_id_username">ID: username</string>
+    <string name="gui_settings">Settings</string>
+    <string name="gui_profile">Profile</string>
+    <string name="gui_favourite">Favourite</string>
+    <string name="gui_contacts">Contacts</string>
+    <string name="gui_messages">Messages</string>
+    <string name="gui_about">About</string>
+    <string name="gui_my_profile_demo">My Profile Demo</string>
+    <string name="gui_enter_username">Enter Username</string>
+    <string name="gui_sign_in">Sign In</string>
+    <string name="gui_enter_password">Enter Password</string>
+    <string name="gui_have_no_account">Have no account?</string>
+    <string name="gui_forget_password">Forget password?</string>
+    <string name="gui_back">back</string>
+    <string name="gui_help_and_feedback"><![CDATA[Help & Feedback]]></string>
+    <string name="gui_features">Features</string>
+    <string name="gui_version_check">Version Check</string>
+    <string name="gui_license">2016 Autumn</string>
+    <string name="license_apache">Apache 2.0 License</string>
+    <string name="gui_author">Tnecesoc</string>
+    <string name="gui_0">0</string>
+    <string name="gui_posts">Posts</string>
+    <string name="gui_download_files">Download Files</string>
+    <string name="gui_new_user">New user?</string>
+    <string name="gui_check_the_term_of_use">Check the term of use</string>
+</resources>

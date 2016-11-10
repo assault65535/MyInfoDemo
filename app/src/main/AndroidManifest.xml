@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.tnecesoc.MyInfoDemo">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme">
+        <activity
+                android:name=".Modules.Index.View.IndexActivity"
+                android:theme="@style/FullScreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".Modules.Login.View.LoginActivity">
+        </activity>
+        <activity
+                android:name=".Modules.Login.View.SignUpActivity"
+                android:label="Sign up"
+                android:parentActivityName=".Modules.Login.View.LoginActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".Modules.Login.View.LoginActivity"/>
+        </activity>
+        <activity android:name=".Modules.NavigatePage.View.NavigateActivity">
+        </activity>
+
+        <activity
+                android:name=".Modules.NavigatePage.View.AboutActivity"
+                android:label="About"
+                android:parentActivityName=".Modules.NavigatePage.View.NavigateActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".Modules.NavigatePage.View.NavigateActivity"/>
+        </activity>
+
+        <activity
+                android:name=".Modules.Profile.View.ProfileMainActivity"
+                android:label="Profile"
+                android:parentActivityName=".Modules.NavigatePage.View.NavigateActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".Modules.NavigatePage.View.NavigateActivity"/>
+
+        </activity>
+
+        <activity android:name=".Modules.Favourite.FavouriteMainActivity"
+                  android:label="Favourite"
+                  android:parentActivityName=".Modules.NavigatePage.View.NavigateActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".Modules.NavigatePage.View.NavigateActivity"/>
+        </activity>
+
+        <activity android:name=".Modules.DownloadFiles.DownloadFilesMainActivity"
+                  android:label="Download Files"
+                  android:parentActivityName=".Modules.NavigatePage.View.NavigateActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".Modules.NavigatePage.View.NavigateActivity"/>
+        </activity>
+
+        <activity android:name=".Modules.Settings.SettingsMainActivity"
+                  android:label="Settings"
+                  android:parentActivityName=".Modules.NavigatePage.View.NavigateActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".Modules.NavigatePage.View.NavigateActivity"/>
+        </activity>
+
+        <activity android:name=".Modules.Contacts.ContactsMainActivity"
+                  android:label="Contacts"
+                  android:parentActivityName=".Modules.NavigatePage.View.NavigateActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".Modules.NavigatePage.View.NavigateActivity"/>
+        </activity>
+
+        <activity android:name=".Modules.Posts.PostsMainActivity"
+                  android:label="Posts"
+                  android:parentActivityName=".Modules.NavigatePage.View.NavigateActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".Modules.NavigatePage.View.NavigateActivity"/>
+        </activity>
+
+        <activity android:name=".Modules.Messages.MessagesMainActivity"
+                  android:label="Messages"
+                  android:parentActivityName=".Modules.NavigatePage.View.NavigateActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".Modules.NavigatePage.View.NavigateActivity"/>
+        </activity>
+
+    </application>
+
+</manifest>

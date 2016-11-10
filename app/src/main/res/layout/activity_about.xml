@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:background="@color/colorScreenBackground"
+        tools:context=".Modules.NavigatePage.View.AboutActivity"
+        android:gravity="center_horizontal">
+
+
+    <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/app_icon"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:text="@string/gui_my_profile_demo"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"/>
+    <LinearLayout
+            android:id="@+id/layout_about_page_features"
+            android:clickable="true"
+            android:background="@drawable/layout_selector"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="32dp"
+            android:gravity="center_vertical">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:text="@string/gui_features"
+                android:layout_marginLeft="16dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/layout_about_page_help_and_feedback"
+            android:clickable="true"
+            android:background="@drawable/layout_selector"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="2dp"
+            android:gravity="center_vertical">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:text="@string/gui_help_and_feedback"
+                android:layout_marginLeft="16dp"/>
+    </LinearLayout>
+    <LinearLayout
+            android:id="@+id/layout_about_page_check_version"
+            android:clickable="true"
+            android:background="@drawable/layout_selector"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="2dp"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_horizontal">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:text="@string/gui_version_check"
+                android:layout_marginLeft="16dp"/>
+    </LinearLayout>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gui_license"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="36dp"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gui_author"
+            android:textColor="@color/skyBlue"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="2dp"/>
+
+</LinearLayout>
