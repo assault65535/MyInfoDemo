@@ -52,7 +52,7 @@ public class SignUpTask extends AsyncTask<String, Void, SignUpTask.Cond> {
             new SignUpCheckHelper(username).doQuery(new HttpUtil.HttpResponseListener() {
                 @Override
                 public void onSuccess(String responseContent) {
-                    if (!Boolean.valueOf(responseContent)) {
+                    if (Boolean.valueOf(responseContent)) {
                         ans.setValue(Cond.USERNAME_CONFLICT);
                     }
                 }
@@ -70,6 +70,8 @@ public class SignUpTask extends AsyncTask<String, Void, SignUpTask.Cond> {
                 public void onSuccess(String responseContent) {
                     if (!Boolean.valueOf(responseContent)) {
                         ans.setValue(Cond.NETWORK_FAILURE);
+                    } else {
+                        ans.setValue(Cond.SUCCESS);
                     }
                 }
 
@@ -92,7 +94,7 @@ public class SignUpTask extends AsyncTask<String, Void, SignUpTask.Cond> {
         } else if (cond == Cond.NOT_INVITED) {
             view.showNotInvited();
         } else {
-            view.showSignInFailed();
+            view.showNetworkFailure();
         }
     }
 }

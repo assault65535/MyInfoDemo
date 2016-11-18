@@ -11,6 +11,10 @@ public interface ISignUpView {
 
     void showNotInvited();
 
-    void showSignInFailed();
+    void showNetworkFailure();
+
+    void showPhoneEntered();
+
+    void showPhoneNotEntered();
 
 }

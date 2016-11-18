@@ -1,9 +1,7 @@
 package com.tnecesoc.MyInfoDemo.GlobalModel;
 
-import com.tnecesoc.MyInfoDemo.Bean.Container;
 import com.tnecesoc.MyInfoDemo.Utils.HttpUtil;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**

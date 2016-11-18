@@ -1,7 +1,9 @@
 package com.tnecesoc.MyInfoDemo.Modules.Login.Tasks;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import com.tnecesoc.MyInfoDemo.Bean.Container;
+import com.tnecesoc.MyInfoDemo.GlobalModel.SessionHelper;
 import com.tnecesoc.MyInfoDemo.Modules.Login.Model.LoginHelper;
 import com.tnecesoc.MyInfoDemo.Modules.Login.View.ILoginView;
 import com.tnecesoc.MyInfoDemo.Utils.HttpUtil;
@@ -16,9 +18,11 @@ public class SignInTask extends AsyncTask<String, Void, SignInTask.Cond> {
     }
 
     private ILoginView view;
+    private Context context;
 
-    public SignInTask(ILoginView view) {
+    public SignInTask(Context context, ILoginView view) {
         this.view = view;
+        this.context = context;
     }
 
     @Override
@@ -26,14 +30,15 @@ public class SignInTask extends AsyncTask<String, Void, SignInTask.Cond> {
 
         final Container<Cond> ans = new Container<>();
 
-        String username = params[0];
-        String password = params[1];
+        final String username = params[0];
+        final String password = params[1];
 
         new LoginHelper(username, password).doQuery(new HttpUtil.HttpResponseListener() {
             @Override
             public void onSuccess(String responseContent) {
                 if (Boolean.valueOf(responseContent)) {
                     ans.setValue(Cond.SUCCESS);
+                    new SessionHelper(context).beginSession(username, password);
                 } else {
                     ans.setValue(Cond.ACCESS_DENIED);
                 }

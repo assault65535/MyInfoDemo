@@ -1,14 +1,9 @@
 package com.tnecesoc.MyInfoDemo.Modules.Login.Model;
 
-import com.tnecesoc.MyInfoDemo.Bean.Container;
-import com.tnecesoc.MyInfoDemo.GlobalModel.ExceptionDetector;
 import com.tnecesoc.MyInfoDemo.GlobalModel.Host;
 import com.tnecesoc.MyInfoDemo.GlobalModel.RemoteModel;
-import com.tnecesoc.MyInfoDemo.Utils.HttpUtil;
-import com.tnecesoc.MyInfoDemo.Utils.HttpUtil.HttpResponseListener;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Tnecesoc on 2016/11/4.

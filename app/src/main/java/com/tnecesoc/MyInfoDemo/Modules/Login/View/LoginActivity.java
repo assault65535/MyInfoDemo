@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
         findViewById(R.id.btn_login_sign_in).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginPresenter.performSignIn(txt_username.getText().toString(), txt_password.getText().toString());
+                loginPresenter.performSignIn(v.getContext(), txt_username.getText().toString(), txt_password.getText().toString());
             }
         });
 

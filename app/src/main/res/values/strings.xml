@@ -26,4 +26,12 @@
     <string name="gui_download_files">Download Files</string>
     <string name="gui_new_user">New user?</string>
     <string name="gui_check_the_term_of_use">Check the term of use</string>
+    <string name="enter_phone"> Your Phone</string>
+    <string name="phone_area_default">+86</string>
+    <string name="plus">+</string>
+    <string name="your_community">Your Community</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="sign_up">Sign up</string>
+    <string name="_continue">CONTINUE</string>
 </resources>
