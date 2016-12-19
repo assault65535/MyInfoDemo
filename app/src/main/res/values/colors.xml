@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00bfff</color>
-    <color name="colorPrimaryDark">#00A7FF</color>
+    <color name="colorPrimary">#5E9FF2</color>
+    <color name="colorPrimaryDark">#4087DC</color>
     <color name="colorAccent">#FF4081</color>
 
     <color name="colorPositiveButtonRelease">#00A7FF</color>
     <color name="colorPositiveButtonPress">#00BFFF</color>
 
-    <color name="colorDivider">#C0C0C0</color>
+    <color name="colorDivider">#B0B0B0</color>
 
     <color name="colorSelected">#E0E0E0</color>
 

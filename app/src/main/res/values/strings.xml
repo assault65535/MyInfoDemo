@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">MyInfoDemo</string>
-    <string name="gui_nickname">nickname</string>
-    <string name="gui_id_username">ID: username</string>
+    <string name="app_name">Neighbors</string>
+    <string name="gui_username">username</string>
+    <string name="gui_motto">This person left nothing here.</string>
     <string name="gui_settings">Settings</string>
     <string name="gui_profile">Profile</string>
     <string name="gui_favourite">Favourite</string>
@@ -18,7 +18,7 @@
     <string name="gui_help_and_feedback"><![CDATA[Help & Feedback]]></string>
     <string name="gui_features">Features</string>
     <string name="gui_version_check">Version Check</string>
-    <string name="gui_license">2016 Autumn</string>
+    <string name="gui_time">2016 Winter</string>
     <string name="license_apache">Apache 2.0 License</string>
     <string name="gui_author">Tnecesoc</string>
     <string name="gui_0">0</string>
@@ -26,7 +26,7 @@
     <string name="gui_download_files">Download Files</string>
     <string name="gui_new_user">New user?</string>
     <string name="gui_check_the_term_of_use">Check the term of use</string>
-    <string name="enter_phone"> Your Phone</string>
+    <string name="enter_phone">Your Phone</string>
     <string name="phone_area_default">+86</string>
     <string name="plus">+</string>
     <string name="your_community">Your Community</string>
@@ -34,4 +34,35 @@
     <string name="password">Password</string>
     <string name="sign_up">Sign up</string>
     <string name="_continue">CONTINUE</string>
+    <string name="log_out">Log out</string>
+    <string name="gui_nickname">nickname</string>
+    <string name="gui_avatar">Avatar</string>
+    <string name="gui_community">Community</string>
+    <string name="gui_Nickname">Nickname</string>
+    <string name="gui_gender">Gender</string>
+    <string name="gui_email_address">Email</string>
+    <string name="gui_phone">Phone</string>
+    <string name="gui_Motto">Motto</string>
+    <string name="gui_password">Password</string>
+    <string name="gui_address">Address</string>
+
+    <string name="tab_title_friend">friend</string>
+    <string name="tab_title_follow">follow</string>
+    <string name="tab_title_follower">follower</string>
+
+    <string name="hint_no_such_contact">No such contact</string>
+    <string name="hint_network_unavailable">Network unavailable</string>
+    <string name="hi">Hi!</string>
+    <string name="meet_with_your">Meet with your</string>
+    <string name="neighbors">Neighbors</string>
+
+    <string name="gui_skip">诚信跳过</string>
+    <string name="hint_onSkip">咕咕咕咕咕？</string>
+    <string name="gui_onIndexBackPressed">听说你想退出？</string>
+
+    <string name="hint_unfollow_contact">Unfollow</string>
+    <string name="hint_follow_contact">Follow</string>
+    <string name="neighbor_chat">Neighbor Chat</string>
+    <string name="add_contacts">Add Contacts</string>
+
 </resources>

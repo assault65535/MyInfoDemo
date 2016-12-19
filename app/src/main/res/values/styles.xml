@@ -6,23 +6,75 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorPrimary</item>
-        <!--<item name="android:windowAnimationStyle">@style/AnimationConstraint</item>-->
+
+        <item name="toolbarStyle">@style/myToolbarStyle</item>
+        <item name="toolbarNavigationButtonStyle">@style/myToolbarNavigationButtonStyle</item>
+
+        <item name="android:windowAnimationStyle">@style/AnimationConstraint</item>
+
     </style>
 
-    <style name="FullScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+    <style name="IndexActivityTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorPrimary</item>
+
+        <item name="actionOverflowMenuStyle">@style/AppPopupMenuStyle</item>
+
+        <item name="toolbarStyle">@style/myToolbarStyle</item>
+        <item name="toolbarNavigationButtonStyle">@style/myToolbarNavigationButtonStyle</item>
+        <item name="actionOverflowButtonStyle">@style/AppOverflowButtonStyle</item>
+
+        <item name="android:windowAnimationStyle">@style/AnimationConstraintAfterIndex</item>
+
     </style>
 
-    <!--好气啊-->
-    <!--<style name="AnimationConstraint">-->
-        <!--<item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>-->
-        <!--<item name="android:activityOpenExitAnimation">@anim/stay</item>-->
-        <!--<item name="android:activityCloseEnterAnimation">@anim/stay</item>-->
-        <!--<item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>-->
-    <!--</style>-->
+    <style name="FullScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+
+    </style>
+
+    <style name="myToolbarNavigationButtonStyle" parent="@style/Widget.AppCompat.Toolbar.Button.Navigation">
+        <item name="android:background">@drawable/toolbar_nav_btn_background</item>
+    </style>
+
+    <style name="myToolbarStyle" parent="@style/Widget.AppCompat.Toolbar">
+        <item name="titleMargins">12dp</item>
+    </style>
+    
+    <style name="AppPopupMenuStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
+        <item name="overlapAnchor">false</item>
+        <item name="android:dropDownHorizontalOffset">-8dp</item>
+        <item name="android:dropDownVerticalOffset">-4dp</item>
+    </style>
+
+    <style name="AppOverflowButtonStyle" parent="Base.Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:src">@mipmap/plus</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+    </style>
+
+
+    <style name="AnimationConstraint" parent="android:Animation.Activity">
+
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/put_aside_to_left</item>
+
+        <item name="android:activityCloseEnterAnimation">@anim/rev_put_aside_to_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+
+    </style>
+
+    <style name="AnimationConstraintAfterIndex" parent="android:Animation.Activity">
+
+        <item name="android:activityCloseEnterAnimation">@anim/rev_put_aside_to_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+
+    </style>
 
     <style name="HotSpotLayout">
         <item name="android:clickable">true</item>

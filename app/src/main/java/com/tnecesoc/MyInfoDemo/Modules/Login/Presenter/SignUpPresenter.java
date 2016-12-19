@@ -1,7 +1,6 @@
 package com.tnecesoc.MyInfoDemo.Modules.Login.Presenter;
 
 import android.graphics.Bitmap;
-import com.tnecesoc.MyInfoDemo.Modules.Login.Tasks.PostAvatarTask;
 import com.tnecesoc.MyInfoDemo.Modules.Login.Tasks.SignUpTask;
 import com.tnecesoc.MyInfoDemo.Modules.Login.View.ISignUpView;
 
@@ -11,16 +10,14 @@ import com.tnecesoc.MyInfoDemo.Modules.Login.View.ISignUpView;
 public class SignUpPresenter {
 
     private ISignUpView view;
-    private Bitmap mAvatar;
 
     private boolean isPhoneEntered = false;
 
     public SignUpPresenter(ISignUpView view) {
         this.view = view;
-        mAvatar = null;
     }
 
-    public void performSignUp(String community, String phone, String username, String password) {
+    public void performSignUp(String community, String phone, String username, String password, Bitmap avatar) {
 
         if (!isPhoneEntered && phone != null && !phone.isEmpty()) {
             isPhoneEntered = true;
@@ -29,17 +26,10 @@ public class SignUpPresenter {
         }
 
         if (isPhoneEntered) {
-            new SignUpTask(view).execute(community, phone, username, password);
-            if (mAvatar != null) {
-                new PostAvatarTask().execute(mAvatar);
-            }
+            new SignUpTask(view, avatar).execute(community, phone, username, password);
         } else {
             view.showPhoneNotEntered();
         }
-    }
-
-    public void performChangeAvatar(Bitmap newAvatar) {
-        mAvatar = newAvatar;
     }
 
 }

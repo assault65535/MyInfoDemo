@@ -23,6 +23,7 @@ import com.tnecesoc.MyInfoDemo.R;
  * updateShaderMatrix保证图片损失度最小和始终绘制图片正中央的那部分
  * 作者思路是画圆用渲染器位图填充，而不是把Bitmap重绘切割成一个圆形图片。
  */
+@Deprecated
 public class CircularImageView extends ImageView {
     //缩放类型
     private static final ScaleType SCALE_TYPE = ScaleType.CENTER_CROP;

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="topColor">#6495ED</color>
+    <color name="textColor">#ffffff</color>
+    <color name="buttonBlue">#4f94cd</color>
+    <color name="white">#ffffff</color>
+    <color name="backGroundMainInterface">#cccccc</color>
+    <color name="mainInterfaceTextColor">#000000</color>
+    <color name="select">#84c1ff</color>
+    <color name="buildMyCircle">#84c1ff</color>
+    <color name="buildIntroduce">#FFE4B5</color>
+</resources>

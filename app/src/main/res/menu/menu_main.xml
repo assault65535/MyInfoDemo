@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+            android:id="@+id/option_main_new_neighbor_chat"
+            app:showAsAction="never"
+            android:icon="@mipmap/ic_mode_comment_white_48dp"
+            android:title="@string/neighbor_chat"/>
+
+    <item android:id="@+id/option_main_new_contact"
+          app:showAsAction="never"
+          android:title="@string/add_contacts"/>
+
+</menu>

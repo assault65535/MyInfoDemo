@@ -11,4 +11,6 @@ public interface ILoginView {
 
     void showNetworkFailure();
 
+    void showAutoComplete(String username);
+
 }

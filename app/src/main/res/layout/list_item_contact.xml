@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:fresco="http://schemas.android.com/tools"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <!--<ImageView-->
+            <!--android:layout_marginStart="16dp"-->
+            <!--android:layout_marginEnd="8dp"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--android:layout_marginBottom="8dp"-->
+            <!--android:src="@drawable/avatar_default"-->
+            <!--android:layout_width="36dp"-->
+            <!--android:layout_height="36dp"/>-->
+
+    <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/img_list_item_contact_avatar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            fresco:actualImageScaleType="focusCrop"
+            fresco:roundingBorderWidth="1dp"
+            fresco:roundingBorderColor="@color/colorDivider"
+            fresco:roundedCornerRadius="5dp"
+            fresco:placeholderImage="@drawable/avatar_default"/>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:id="@+id/lbl_list_item_contact_nickname"
+                android:text="Tnecesoc"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/lbl_list_item_contact_motto"
+                android:text="喵喵喵喵喵？"
+                android:layout_marginTop="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</LinearLayout>

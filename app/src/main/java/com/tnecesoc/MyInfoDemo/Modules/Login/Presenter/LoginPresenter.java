@@ -1,6 +1,7 @@
 package com.tnecesoc.MyInfoDemo.Modules.Login.Presenter;
 
 import android.content.Context;
+import com.tnecesoc.MyInfoDemo.GlobalModel.Local.SessionHelper;
 import com.tnecesoc.MyInfoDemo.Modules.Login.Tasks.SignInTask;
 import com.tnecesoc.MyInfoDemo.Modules.Login.View.ILoginView;
 
@@ -17,12 +18,13 @@ public class LoginPresenter {
     }
 
     public void performSignIn(Context context, String username, String password) {
-
         new SignInTask(context, view).execute(username, password);
-
     }
 
-
+    public void performAutoComplete(Context context) {
+        SessionHelper session = new SessionHelper(context);
+        String username = session.getSessionAttribute(SessionHelper.KEY_USERNAME);
+    }
 
     public void performForceSignIn() {
         if (++counter >= 5) {

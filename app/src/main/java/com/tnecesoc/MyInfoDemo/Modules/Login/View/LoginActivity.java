@@ -8,8 +8,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import com.tnecesoc.MyInfoDemo.Modules.Homepage.View.MainActivity;
 import com.tnecesoc.MyInfoDemo.Modules.Login.Presenter.LoginPresenter;
-import com.tnecesoc.MyInfoDemo.Modules.NavigatePage.View.NavigateActivity;
 import com.tnecesoc.MyInfoDemo.R;
 
 public class LoginActivity extends AppCompatActivity implements ILoginView{
@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
 
     @Override
     public void showLoginSuccessful() {
-        startActivity(new Intent(LoginActivity.this, NavigateActivity.class));
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
         finish();
     }
 
@@ -42,6 +42,11 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     public void showNetworkFailure() {
         dialogWarning.setMessage("Network is unavailable");
         dialogWarning.show();
+    }
+
+    @Override
+    public void showAutoComplete(String username) {
+        txt_username.setText(username);
     }
 
     @Override
@@ -96,6 +101,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
         });
 
         dialogWarning.setPositiveButton("CONFIRM", null);
+
+        loginPresenter.performAutoComplete(this);
 
     }
 

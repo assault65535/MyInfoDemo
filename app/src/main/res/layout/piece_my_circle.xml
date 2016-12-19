@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+    <ListView
+            android:id="@+id/circleName"
+            android:layout_above="@+id/build"
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    </ListView>
+
+
+    <Button
+            android:layout_width="match_parent"
+            android:id="@+id/build"
+            android:layout_height="50dp"
+            android:text="@string/buildMyCircle"
+            android:background="@drawable/buildmycirclebuttom"
+            android:layout_alignParentBottom="true"/>
+</RelativeLayout>

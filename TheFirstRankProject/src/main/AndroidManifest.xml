@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.TomyYan.TheFirstRankProject">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme">
+        <activity android:name=".LoginIn">
+        </activity>
+        <activity android:name=".register">
+        </activity>
+        <activity android:name=".FindKey">
+        </activity>
+        <activity android:name=".main_page">
+        </activity>
+        <activity android:name=".my_circle">
+        </activity>
+        <activity android:name=".personal">
+        </activity>
+        <activity android:name=".circle_search">
+        </activity>
+        <activity android:name=".team_talk_window">
+        </activity>
+        <activity android:name=".circle_build">
+        </activity>
+        <activity android:name=".have_build">
+        </activity>
+    </application>
+
+</manifest>

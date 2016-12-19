@@ -1,11 +1,13 @@
 package com.tnecesoc.MyInfoDemo.Modules.Login.Tasks;
 
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import com.tnecesoc.MyInfoDemo.Bean.Container;
 import com.tnecesoc.MyInfoDemo.Modules.Login.Model.InvitationHelper;
 import com.tnecesoc.MyInfoDemo.Modules.Login.Model.SignUpCheckHelper;
 import com.tnecesoc.MyInfoDemo.Modules.Login.Model.SignUpHelper;
 import com.tnecesoc.MyInfoDemo.Modules.Login.View.ISignUpView;
+import com.tnecesoc.MyInfoDemo.GlobalModel.Remote.UpdateAvatarHelper;
 import com.tnecesoc.MyInfoDemo.Utils.HttpUtil;
 
 /**
@@ -19,9 +21,11 @@ public class SignUpTask extends AsyncTask<String, Void, SignUpTask.Cond> {
     }
 
     private ISignUpView view;
+    private Bitmap avatar;
 
-    public SignUpTask(ISignUpView view) {
+    public SignUpTask(ISignUpView view, Bitmap avatar) {
         this.view = view;
+        this.avatar = avatar;
     }
 
     @Override
@@ -34,7 +38,7 @@ public class SignUpTask extends AsyncTask<String, Void, SignUpTask.Cond> {
         String username = params[2];
         String password = params[3];
 
-        new InvitationHelper(community, phone).doQuery(new HttpUtil.HttpResponseListener() {
+        new InvitationHelper(community, phone).doRequest(new HttpUtil.HttpResponseListener() {
             @Override
             public void onSuccess(String responseContent) {
                 if (!Boolean.valueOf(responseContent)) {
@@ -49,7 +53,7 @@ public class SignUpTask extends AsyncTask<String, Void, SignUpTask.Cond> {
         });
 
         if (ans.getValue() == Cond.CHECKING) {
-            new SignUpCheckHelper(username).doQuery(new HttpUtil.HttpResponseListener() {
+            new SignUpCheckHelper(username).doRequest(new HttpUtil.HttpResponseListener() {
                 @Override
                 public void onSuccess(String responseContent) {
                     if (Boolean.valueOf(responseContent)) {
@@ -65,14 +69,26 @@ public class SignUpTask extends AsyncTask<String, Void, SignUpTask.Cond> {
         }
 
         if (ans.getValue() == Cond.CHECKING) {
-            new SignUpHelper(community, phone, username, password).doQuery(new HttpUtil.HttpResponseListener() {
+            new SignUpHelper(community, phone, username, password).doRequest(new HttpUtil.HttpResponseListener() {
                 @Override
                 public void onSuccess(String responseContent) {
                     if (!Boolean.valueOf(responseContent)) {
                         ans.setValue(Cond.NETWORK_FAILURE);
-                    } else {
-                        ans.setValue(Cond.SUCCESS);
                     }
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    ans.setValue(Cond.NETWORK_FAILURE);
+                }
+            });
+        }
+
+        if (ans.getValue() == Cond.CHECKING) {
+            new UpdateAvatarHelper(username, avatar).doRequest(new HttpUtil.HttpResponseListener() {
+                @Override
+                public void onSuccess(String responseContent) {
+                    ans.setValue(Boolean.valueOf(responseContent) ? Cond.SUCCESS : Cond.NETWORK_FAILURE);
                 }
 
                 @Override

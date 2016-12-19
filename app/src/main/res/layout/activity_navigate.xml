@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorScreenBackground"
-        tools:context=".Modules.NavigatePage.View.NavigateActivity">
+        tools:context=".Modules.Homepage.View.NavigateActivity">
     <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
@@ -14,121 +14,7 @@
             android:layout_height="wrap_content">
 
         <!--top-->
-        <LinearLayout
-                android:layout_margin="8dp"
-                android:background="@drawable/rounded_rectangle_background"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_horizontal">
-            <LinearLayout
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:orientation="vertical"
-                    android:paddingBottom="16dp">
-                <com.tnecesoc.MyInfoDemo.Widget.CircularImageView
-                        android:layout_width="64dp"
-                        android:layout_height="64dp"
-                        android:id="@+id/img_main_page_avatar"
-                        android:src="@drawable/avatar_default"
-                        android:contentDescription=""
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="16dp"/>
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        android:text="@string/gui_nickname"
-                        android:id="@+id/lbl_main_page_nickname"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="4dp"/>
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/gui_id_username"
-                        android:textSize="16sp"
-                        android:id="@+id/lbl_main_page_username"
-                        android:layout_gravity="center_horizontal"/>
-            </LinearLayout>
-
-            <LinearLayout
-                    android:weightSum="3"
-                    android:orientation="horizontal"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:baselineAligned="false">
-                <LinearLayout
-                        android:id="@+id/layout_main_page_contacts"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:clickable="true"
-                        android:background="@drawable/left_bottom_bookmark"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:gravity="center">
-
-                    <TextView
-                            android:id="@+id/lbl_main_page_contacts_count"
-                            android:text="@string/gui_0"
-                            android:textSize="24sp"
-                            android:textColor="@android:color/black"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                    <TextView
-                            android:textColor="@android:color/black"
-                            android:text="@string/gui_contacts"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <LinearLayout
-                        android:id="@+id/layout_main_page_messages"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:clickable="true"
-                        android:background="@drawable/middle_bottom_bookmark"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:gravity="center">
-                    <TextView
-                            android:id="@+id/lbl_main_page_message_count"
-                            android:text="@string/gui_0"
-                            android:textSize="24sp"
-                            android:textColor="@android:color/black"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:layout_marginTop="8dp"/>
-                    <TextView
-                            android:textColor="@android:color/black"
-                            android:text="@string/gui_messages"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:layout_marginBottom="8dp"/>
-                </LinearLayout>
-                <LinearLayout
-                        android:id="@+id/layout_main_page_posts"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:clickable="true"
-                        android:background="@drawable/right_bottom_bookmark"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:gravity="center">
-                    <TextView
-                            android:id="@+id/lbl_main_page_posts_count"
-                            android:text="@string/gui_0"
-                            android:textSize="24sp"
-                            android:textColor="@android:color/black"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                    <TextView
-                            android:textColor="@android:color/black"
-                            android:text="@string/gui_posts"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                </LinearLayout>
-            </LinearLayout>
-
-        </LinearLayout>
+        <include layout="@layout/piece_profile"/>
 
         <LinearLayout
                 android:id="@+id/layout_main_page_profile"
@@ -155,6 +41,7 @@
                     android:text="@string/gui_profile"
                     android:layout_marginLeft="16dp"/>
         </LinearLayout>
+
         <LinearLayout
                 android:id="@+id/layout_main_page_favourite"
                 android:orientation="horizontal"
@@ -180,6 +67,7 @@
                     android:text="@string/gui_favourite"
                     android:layout_marginLeft="16dp"/>
         </LinearLayout>
+
         <LinearLayout
                 android:id="@+id/layout_main_page_download_files"
                 android:orientation="horizontal"
@@ -206,6 +94,7 @@
                     android:text="@string/gui_download_files"
                     android:layout_marginLeft="16dp"/>
         </LinearLayout>
+
         <LinearLayout
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
@@ -231,6 +120,7 @@
                     android:text="@string/gui_settings"
                     android:layout_marginLeft="16dp"/>
         </LinearLayout>
+
         <LinearLayout
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
@@ -256,10 +146,11 @@
                     android:text="@string/gui_about"
                     android:layout_marginLeft="16dp"/>
         </LinearLayout>
+
         <Space
                 android:layout_width="match_parent"
-                android:layout_height="24dp"
-        />
+                android:layout_height="24dp"/>
+
     </LinearLayout>
 </ScrollView>
 
