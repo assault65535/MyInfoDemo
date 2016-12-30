@@ -5,18 +5,18 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import com.tnecesoc.MyInfoDemo.R;
-import com.tnecesoc.MyInfoDemo.Utils.NavigateFrame;
+import com.tnecesoc.MyInfoDemo.Utils.NavigateViewHolder;
 
 @Deprecated
 public class NavigateActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private NavigateFrame mViewModel;
+    private NavigateViewHolder mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigate);
-        mViewModel = new NavigateFrame(this, this);
+        mViewModel = new NavigateViewHolder(this, this);
     }
 
     @Override

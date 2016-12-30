@@ -9,7 +9,7 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-    <LinearLayout
+    <RelativeLayout
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:orientation="vertical"
@@ -17,68 +17,74 @@
 
         <!--&lt;!&ndash;used to get a preview&ndash;&gt;-->
         <!--<ImageView-->
+                <!--android:id="@+id/img_profile_page_avatar"-->
                 <!--android:src="@drawable/avatar_default"-->
-                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:layout_marginStart="16dp"-->
                 <!--android:layout_marginTop="16dp"-->
                 <!--android:layout_width="64dp"-->
                 <!--android:layout_height="64dp"/>-->
-    
+
         <com.facebook.drawee.view.SimpleDraweeView
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:id="@+id/img_profile_page_avatar"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
             fresco:actualImageScaleType="focusCrop"
             fresco:roundedCornerRadius="5dp"
-            fresco:roundingBorderWidth="1dp"
-            fresco:roundingBorderColor="@color/colorDivider"
-            fresco:placeholderImage="@drawable/avatar_default"/>
+            fresco:roundingBorderWidth="1px"
+            fresco:fadeDuration="0"
+            fresco:roundingBorderColor="@android:color/black"/>
 
-        <LinearLayout
-                android:layout_gravity="center"
-                android:orientation="horizontal"
+        <TextView
+                android:layout_alignTop="@+id/img_profile_page_avatar"
+                android:layout_toEndOf="@+id/img_profile_page_avatar"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    android:text="@string/gui_nickname"
-                    android:id="@+id/lbl_profile_page_nickname"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="4dp"/>
-            <ImageView
-                    android:id="@+id/img_profile_page_gender"
-                    android:layout_gravity="center"
-                    android:scaleType="fitCenter"
-                    android:layout_marginStart="4dp"
-                    android:src="@drawable/male"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"/>
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:text="@string/gui_nickname"
+                android:id="@+id/lbl_profile_page_nickname"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"/>
 
+        <ImageView
+                android:id="@+id/img_profile_page_gender"
+                android:layout_alignTop="@+id/img_profile_page_avatar"
+                android:layout_toEndOf="@+id/lbl_profile_page_nickname"
+                android:scaleType="fitCenter"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="7dp"
+                android:src="@drawable/male"
+                android:layout_width="16dp"
+                android:layout_height="16dp"/>
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/lbl_profile_page_nickname"
+                android:layout_below="@+id/lbl_profile_page_nickname"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12sp"
                 android:text="@string/gui_username"
                 android:id="@+id/lbl_profile_page_username"
                 android:layout_gravity="center_horizontal"/>
-    
+
         <TextView
+                android:id="@+id/lbl_profile_page_motto"
+                android:layout_toEndOf="@+id/img_profile_page_avatar"
+                android:layout_alignBottom="@+id/img_profile_page_avatar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/gui_motto"
                 android:textSize="16sp"
-                android:id="@+id/lbl_profile_page_motto"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"/>
-    </LinearLayout>
-    
+
+    </RelativeLayout>
+
     <LinearLayout
             android:weightSum="3"
             android:orientation="horizontal"
@@ -94,7 +100,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:gravity="center">
-    
+
             <TextView
                     android:id="@+id/lbl_profile_page_contacts_count"
                     android:text="@string/gui_0"
@@ -109,6 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
         </LinearLayout>
+
         <LinearLayout
                 android:id="@+id/layout_profile_page_messages"
                 android:layout_weight="1"

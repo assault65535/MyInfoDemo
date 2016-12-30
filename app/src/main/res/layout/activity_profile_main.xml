@@ -178,16 +178,13 @@
                     android:gravity="right|center_vertical"
                     android:layout_height="match_parent"
                     android:layout_width="match_parent">
-                <TextView
-                        android:background="@android:color/transparent"
-                        android:id="@+id/lbl_profile_gender"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        android:text="secret"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"/>
+                <ImageView
+                        android:id="@+id/img_profile_gender"
+                        android:scaleType="fitCenter"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/male"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"/>
             </LinearLayout>
 
         </LinearLayout>

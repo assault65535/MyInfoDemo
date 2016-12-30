@@ -3,6 +3,10 @@
       xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+            android:id="@+id/option_main_new_post"
+            android:title="@string/gui_new_post"/>
+
+    <item
             android:id="@+id/option_main_new_neighbor_chat"
             app:showAsAction="never"
             android:icon="@mipmap/ic_mode_comment_white_48dp"

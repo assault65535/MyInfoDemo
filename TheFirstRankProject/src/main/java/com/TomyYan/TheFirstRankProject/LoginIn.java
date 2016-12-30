@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.TomyYan.TheFirstRankProject.R;
+
 public class LoginIn extends Activity implements View.OnClickListener {
     private EditText number;
     private EditText key;
@@ -76,7 +78,7 @@ public class LoginIn extends Activity implements View.OnClickListener {
             sendRequestToServer();
             //测试代码
 //                Intent intent=new Intent();
-//                intent.putExtra("user",a);
+//                intent.putExtra("user",1);
 //                intent.setClass(LoginIn.this,main_page.class);
 //                LoginIn.this.startActivity(intent);
 //                finish();

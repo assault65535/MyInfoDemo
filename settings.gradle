@@ -1,1 +1,1 @@
-include ':app', ':TheFirstRankProject'
+include ':app', ':TheFirstRankProject', ':homemodule'

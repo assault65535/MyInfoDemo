@@ -1,4 +1,4 @@
-package com.tnecesoc.MyInfoDemo.Bean;
+package com.tnecesoc.MyInfoDemo.Entity;
 
 /**
  * Created by Tnecesoc on 2016/11/5.

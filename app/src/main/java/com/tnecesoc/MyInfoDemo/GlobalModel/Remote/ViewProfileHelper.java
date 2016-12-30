@@ -1,18 +1,17 @@
 package com.tnecesoc.MyInfoDemo.GlobalModel.Remote;
 
 import com.google.gson.reflect.TypeToken;
-import com.tnecesoc.MyInfoDemo.Bean.ProfileBean;
+import com.tnecesoc.MyInfoDemo.Entity.Profile;
 import com.tnecesoc.MyInfoDemo.Utils.HttpUtil;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by Tnecesoc on 2016/11/21.
  */
 public class ViewProfileHelper extends RemoteModelImpl {
 
-    private static final String URL = Host.URL + "/view-profile";
+    private static final String URL = Host.SERVER_HOST + "/view-profile";
 
     public ViewProfileHelper(final String username) {
         super(URL, new HashMap<String, String>(){{
@@ -25,7 +24,7 @@ public class ViewProfileHelper extends RemoteModelImpl {
         super.doRequest(listener);
     }
 
-    public ProfileBean viewProfile(final HttpUtil.HttpErrorListener listener) {
-        return super.doQueryForObject(new TypeToken<ProfileBean>(){}, listener);
+    public Profile viewProfile(final HttpUtil.HttpErrorListener listener) {
+        return super.doQueryForObject(new TypeToken<Profile>(){}, listener);
     }
 }

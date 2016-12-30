@@ -21,7 +21,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
 
     private LoginPresenter loginPresenter;
 
-
     public static final String TAG = "lo";
 
     @Override
@@ -33,14 +32,14 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     @Override
     public void showAccessDenied() {
 
-        dialogWarning.setMessage("Wrong username or password");
+        dialogWarning.setMessage(R.string.hint_access_denied);
         dialogWarning.show();
 
     }
 
     @Override
     public void showNetworkFailure() {
-        dialogWarning.setMessage("Network is unavailable");
+        dialogWarning.setMessage(R.string.hint_network_unavailable);
         dialogWarning.show();
     }
 
@@ -59,6 +58,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
         initializeUI();
 
         initializeUICallbacks();
+
+        loginPresenter.performAutoComplete(this);
     }
 
     @SuppressWarnings({"ConstantConditions", "deprecation"})
@@ -67,7 +68,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
         findViewById(R.id.btn_login_sign_in).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginPresenter.performSignIn(v.getContext(), txt_username.getText().toString(), txt_password.getText().toString());
+                loginPresenter.performSignIn(LoginActivity.this, txt_username.getText().toString(), txt_password.getText().toString());
             }
         });
 

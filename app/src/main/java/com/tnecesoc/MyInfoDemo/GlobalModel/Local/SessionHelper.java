@@ -2,7 +2,7 @@ package com.tnecesoc.MyInfoDemo.GlobalModel.Local;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import com.tnecesoc.MyInfoDemo.Bean.ProfileBean;
+import com.tnecesoc.MyInfoDemo.Entity.Profile;
 
 import java.lang.reflect.Field;
 
@@ -36,23 +36,23 @@ public class SessionHelper implements ISessionModel {
     }
 
     @Override
-    public void beginSession(String username, String password, ProfileBean profileBean) {
+    public void beginSession(String username, String password, Profile profile) {
         sharedPreferences.edit().putString(KEY_USERNAME, username).apply();
         sharedPreferences.edit().putString(KEY_PASSWORD, password).apply();
         sharedPreferences.edit().putBoolean(KEY_ONLINE, true).apply();
 
-        updateSession(profileBean);
+        updateSession(profile);
     }
 
     @Override
-    public void updateSession(ProfileBean profileBean) {
-        for (Field f : ProfileBean.class.getDeclaredFields()) {
+    public void updateSession(Profile profile) {
+        for (Field f : Profile.class.getDeclaredFields()) {
             f.setAccessible(true);
             try {
-                if (f.get(profileBean) == null) {
+                if (f.get(profile) == null) {
                     sharedPreferences.edit().remove(f.getName().toUpperCase()).apply();
                 } else {
-                    sharedPreferences.edit().putString(f.getName().toUpperCase(), f.get(profileBean) + "").apply();
+                    sharedPreferences.edit().putString(f.getName().toUpperCase(), f.get(profile) + "").apply();
                 }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
@@ -63,7 +63,7 @@ public class SessionHelper implements ISessionModel {
     @Override
     public void terminateSession() {
 
-        for (Field f : ProfileBean.class.getDeclaredFields()) {
+        for (Field f : Profile.class.getDeclaredFields()) {
             sharedPreferences.edit().remove(f.getName().toUpperCase()).apply();
         }
 
@@ -75,9 +75,9 @@ public class SessionHelper implements ISessionModel {
         return sharedPreferences.getString(key, null);
     }
 
-    public ProfileBean getEntireProfile() {
-        ProfileBean res = new ProfileBean();
-        for (Field f : ProfileBean.class.getDeclaredFields()) {
+    public Profile getEntireProfile() {
+        Profile res = new Profile();
+        for (Field f : Profile.class.getDeclaredFields()) {
             f.setAccessible(true);
             try {
                 String info = sharedPreferences.getString(f.getName().toUpperCase(), null);

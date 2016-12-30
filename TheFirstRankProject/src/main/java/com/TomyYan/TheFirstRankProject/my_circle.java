@@ -1,18 +1,11 @@
 package com.TomyYan.TheFirstRankProject;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
 import android.view.View;
-import android.widget.*;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import android.widget.Button;
+import android.widget.ImageButton;
+import com.TomyYan.GlobalModel.Local.SessionHelper;
 
 /**
  * Created by dell on 2016/9/3.
@@ -25,6 +18,7 @@ public class my_circle extends Activity {
     private ButtonListener buttonListener=null;
     private Button build;
     private String[] names;
+    private SessionHelper sessionHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +50,13 @@ public class my_circle extends Activity {
         setListener();
     }
     private boolean getInfoFromLastActivity(){
-        Intent intent=getIntent();
-        user=intent.getStringExtra("user");
+        //
+//        Intent intent=getIntent();
+//        user=intent.getStringExtra("user");
+        //
+        sessionHelper = new SessionHelper(my_circle.this);
+        user=sessionHelper.getSessionAttribute(SessionHelper.KEY_PHONE);
+        //
         return true;
     }
 

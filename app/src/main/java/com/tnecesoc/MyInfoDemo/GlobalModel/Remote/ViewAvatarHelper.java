@@ -10,7 +10,7 @@ import com.tnecesoc.MyInfoDemo.Utils.HttpUtil;
 @Deprecated
 public class ViewAvatarHelper extends RemoteModelImpl {
 
-    public static final String URL = Host.URL + "/user-avatars";
+    public static final String URL = Host.SERVER_HOST + "/user-avatars";
 
     public String username;
 

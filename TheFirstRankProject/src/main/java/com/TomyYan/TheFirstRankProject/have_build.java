@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import com.TomyYan.GlobalModel.Local.SessionHelper;
+
 
 /**
  * Created by dell on 2016/9/11.
@@ -17,18 +19,29 @@ public class have_build extends Activity{
     private Intent intent=null;
     private Intent intentP=null;
     private String[] names;
+    private SessionHelper sessionHelper;
+
+
+    private ListView listView;
+
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.have_build);
         intent=getIntent();
         intentP=new Intent();
         user=intent.getStringExtra("user");
+        //
+        sessionHelper = new SessionHelper(have_build.this);
+        user=sessionHelper.getSessionAttribute(SessionHelper.KEY_PHONE);
+        //
         buttonListener=new ButtonListener();
         back=(ImageButton)findViewById(R.id.haveBuildBack);
         back.setOnClickListener(buttonListener);
         GetMyCircleNames getOtherName=new GetMyCircleNames();
         getOtherName.sendActivity(this);
         getOtherName.getMyCircleNames(user,"get_circle_have_build");
+
+        listView = (ListView) findViewById(R.id.have_build_names);
 
 //        //列出所加入的邻里圈
 //        GetMyCircleNames getName=new GetMyCircleNames();
@@ -48,6 +61,7 @@ public class have_build extends Activity{
 
 
     }
+
     private class ButtonListener implements View.OnClickListener{
         public void onClick(View v){
             int i = v.getId();
@@ -56,7 +70,6 @@ public class have_build extends Activity{
 //                    have_build.this.startActivity(intentP);
                 finish();
 
-            } else {
             }
         }
     }

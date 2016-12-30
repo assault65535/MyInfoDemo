@@ -14,21 +14,21 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void showFeatures() {
         dialog.setTitle(R.string.gui_features);
-        dialog.setMessage("Small but continuous change is happening...");
+        dialog.setMessage(R.string.info_new_features);
         dialog.show();
     }
 
     @Override
     public void showHelpAndFeedback() {
-        dialog.setTitle("For help and feedback");
-        dialog.setMessage("Contact yourself");
+        dialog.setTitle(R.string.gui_help_and_feedback);
+        dialog.setMessage(R.string.info_help_and_feedback);
         dialog.show();
     }
 
     @Override
     public void showVersionCheck() {
-        dialog.setTitle("Version");
-        dialog.setMessage("Alpha test work in progress");
+        dialog.setTitle(R.string.gui_version_check);
+        dialog.setMessage(R.string.info_version_check);
         dialog.show();
     }
 
@@ -38,7 +38,7 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_about);
 
         dialog = new AlertDialog.Builder(this);
-        dialog.setPositiveButton("CONFIRM", null);
+        dialog.setPositiveButton(R.string._continue, null);
 
         initializeUICallbacks();
 

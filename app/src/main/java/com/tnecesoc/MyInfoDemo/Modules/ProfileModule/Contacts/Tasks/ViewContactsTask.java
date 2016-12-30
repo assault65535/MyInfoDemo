@@ -2,8 +2,8 @@ package com.tnecesoc.MyInfoDemo.Modules.ProfileModule.Contacts.Tasks;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import com.tnecesoc.MyInfoDemo.Bean.Container;
-import com.tnecesoc.MyInfoDemo.Bean.ProfileBean;
+import com.tnecesoc.MyInfoDemo.Entity.Container;
+import com.tnecesoc.MyInfoDemo.Entity.Profile;
 import com.tnecesoc.MyInfoDemo.GlobalModel.Local.LocalContactsHelper;
 import com.tnecesoc.MyInfoDemo.Modules.ProfileModule.Contacts.Model.ViewFollowUserHelper;
 import com.tnecesoc.MyInfoDemo.Modules.ProfileModule.Contacts.Model.ViewFollowerHelper;
@@ -24,10 +24,10 @@ public class ViewContactsTask extends AsyncTask<String, Void, ViewContactsTask.C
 
     private LocalContactsHelper helper;
     private IContactListView view;
-    private List<ProfileBean> localData, remoteData;
-    private ProfileBean.Category category;
+    private List<Profile> localData, remoteData;
+    private Profile.Category category;
 
-    public ViewContactsTask(IContactListView view, Context context, ProfileBean.Category category) {
+    public ViewContactsTask(IContactListView view, Context context, Profile.Category category) {
         this.view = view;
         this.category = category;
         this.helper = new LocalContactsHelper(context);
@@ -37,6 +37,7 @@ public class ViewContactsTask extends AsyncTask<String, Void, ViewContactsTask.C
     protected Cond doInBackground(String... params) {
 
         final Container<Cond> res = new Container<Cond>(Cond.SUCCESS);
+
         localData = helper.getContactsListByCategory(category);
 
         publishProgress();
@@ -74,6 +75,9 @@ public class ViewContactsTask extends AsyncTask<String, Void, ViewContactsTask.C
 
         if (res.getValue() == Cond.NETWORK_FAILURE) {
             localData = helper.getContactsListByCategory(category);
+        } else {
+            helper.putAllProfileInCategory(remoteData, category);
+            localData = remoteData;
         }
 
         res.setValue(Cond.SUCCESS);
@@ -91,10 +95,6 @@ public class ViewContactsTask extends AsyncTask<String, Void, ViewContactsTask.C
 
         if (view == null) {
             return;
-        }
-
-        if (cond != Cond.NETWORK_FAILURE) {
-            localData = remoteData;
         }
 
         view.showContactList(localData);

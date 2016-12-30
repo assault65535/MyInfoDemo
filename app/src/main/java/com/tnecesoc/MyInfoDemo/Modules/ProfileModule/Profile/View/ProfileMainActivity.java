@@ -10,10 +10,11 @@ import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.tnecesoc.MyInfoDemo.Bean.ProfileBean;
+import com.tnecesoc.MyInfoDemo.Entity.Profile;
 import com.tnecesoc.MyInfoDemo.GlobalModel.Remote.Host;
 import com.tnecesoc.MyInfoDemo.GlobalView.UpdateAvatarViewImpl;
 import com.tnecesoc.MyInfoDemo.Modules.ProfileModule.Profile.Presenter.ProfileMainPresenter;
@@ -38,21 +39,24 @@ public class ProfileMainActivity extends UpdateAvatarViewImpl implements View.On
 
     private ProfileMainPresenter presenter;
 
-    private ProfileBean backup, newProfile;
+    private ImageView img_gender;
+    private Profile.Gender genderCond;
+
+    private Profile backup, newProfile;
 
     private Map<String, TextView> info;
 
     @Override
-    public void showProfile(ProfileBean profileBean) {
+    public void showProfile(Profile profile) {
 
-        backup = profileBean;
+        backup = profile;
 
         Field field;
         for (Map.Entry<String, TextView> entry : info.entrySet()){
             try {
-                field = ProfileBean.class.getDeclaredField(entry.getKey());
+                field = Profile.class.getDeclaredField(entry.getKey());
                 field.setAccessible(true);
-                String content = (String) field.get(profileBean);
+                String content = (String) field.get(profile);
                 if (content != null) {
                     entry.getValue().setText(content);
                 } else {
@@ -63,9 +67,11 @@ public class ProfileMainActivity extends UpdateAvatarViewImpl implements View.On
             }
         }
 
-        avatar_uri = Uri.parse(Host.URL + "/user-avatars/" + profileBean.getUsername() + ".png");
+        avatar_uri = Uri.parse(Host.SERVER_HOST + "/user-avatars/" + profile.getUsername() + ".png");
 
         img_avatar.setImageURI(avatar_uri);
+
+        setGenderTo(Profile.Gender.valueOf(profile.getGender()));
 
         newProfile = getProfileFromInput();
     }
@@ -119,8 +125,9 @@ public class ProfileMainActivity extends UpdateAvatarViewImpl implements View.On
             put("address", (TextView) findViewById(R.id.lbl_profile_address));
             put("phone", (TextView) findViewById(R.id.lbl_profile_phone));
             put("community", (TextView) findViewById(R.id.lbl_profile_community));
-            put("gender", (TextView) findViewById(R.id.lbl_profile_gender));
         }};
+
+        img_gender = (ImageView) findViewById(R.id.img_profile_gender);
 
     }
 
@@ -193,12 +200,12 @@ public class ProfileMainActivity extends UpdateAvatarViewImpl implements View.On
         setResult(RESULT_PROFILE_CHANGED);
     }
 
-    private ProfileBean getProfileFromInput() {
-        ProfileBean res = new ProfileBean();
+    private Profile getProfileFromInput() {
+        Profile res = new Profile();
         Field f;
         try {
             for (Map.Entry<String, TextView> entry : info.entrySet()) {
-                f = ProfileBean.class.getDeclaredField(entry.getKey());
+                f = Profile.class.getDeclaredField(entry.getKey());
                 f.setAccessible(true);
                 f.set(res, entry.getValue().getText().toString());
             }
@@ -206,14 +213,35 @@ public class ProfileMainActivity extends UpdateAvatarViewImpl implements View.On
             e.printStackTrace();
         }
 
+        res.setGender(genderCond.name().toUpperCase());
         res.setUsername(backup.getUsername());
 
         return res;
     }
 
+    private void setGenderTo(Profile.Gender gender) {
+        this.genderCond = gender;
+
+        if (img_gender.getVisibility() == View.GONE) {
+            img_gender.setVisibility(View.VISIBLE);
+        }
+
+        switch (gender) {
+            case MALE:
+                img_gender.setImageResource(R.drawable.male);
+                break;
+            case FEMALE:
+                img_gender.setImageResource(R.drawable.female);
+                break;
+            case SECRET:
+                img_gender.setVisibility(View.GONE);
+                break;
+        }
+    }
+
     private void doEditProfile(final String key) {
-        mEditTextDialog.setTitle("New " + key);
-        mEditTextDialog.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+        mEditTextDialog.setTitle(findTitleByKey(key));
+        mEditTextDialog.setPositiveButton(R.string._continue, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 final EditText text = (EditText) mEditTextDialogRef.findViewById(R.id.txt_dialog_edittext);
@@ -232,37 +260,39 @@ public class ProfileMainActivity extends UpdateAvatarViewImpl implements View.On
         text.setSelection(defaultAttr.length());
     }
 
+    private int findTitleByKey(String key) {
+        switch (key) {
+            case "nickname":
+                return R.string.gui_new_nickname;
+            case "motto":
+                return R.string.gui_new_motto;
+            case "email":
+                return R.string.gui_new_email;
+            case "address":
+                return R.string.gui_new_address;
+            default:
+                return R.string.gui_0;
+        }
+    }
+
+
     private void initDialog() {
 
         mWarningDialog = new AlertDialog.Builder(this);
-        mWarningDialog.setTitle("To change protected profile");
-        mWarningDialog.setMessage("Please find the the governor of your community");
-        mWarningDialog.setPositiveButton("Confirm", null);
+        mWarningDialog.setTitle(R.string.warn_changing_protected_info);
+        mWarningDialog.setMessage(getString(R.string.info_warn_changing_protected_info));
+        mWarningDialog.setPositiveButton(R.string._continue, null);
 
-        final String[] choices = new String[]{"MALE", "FEMALE", "SECRET"};
-        int defaultChoice = 0;
-        switch (backup.getGender()) {
-            case "MALE":
-                break;
-            case "FEMALE":
-                defaultChoice = 1;
-                break;
-            case "SECRET":
-                defaultChoice = 2;
-                break;
-            default:
-                break;
-        }
         mEditGenderDialog = new AlertDialog.Builder(this);
-        mEditGenderDialog.setTitle("What's Your gender?");
-        mEditGenderDialog.setSingleChoiceItems(choices, defaultChoice, new DialogInterface.OnClickListener() {
+        mEditGenderDialog.setTitle(R.string.info_ask_gender);
+        mEditGenderDialog.setSingleChoiceItems(R.array.choice_gender, -1, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                info.get("gender").setText(choices[which]);
+                setGenderTo(Profile.Gender.values()[which]);
                 notifyProfileChanged();
             }
         });
-        mEditGenderDialog.setPositiveButton("Confirm", null);
+        mEditGenderDialog.setPositiveButton(R.string._continue, null);
 
         mEditTextDialog = new AlertDialog.Builder(this);
         mEditTextDialog.setView(R.layout.dialog_edittext_view);

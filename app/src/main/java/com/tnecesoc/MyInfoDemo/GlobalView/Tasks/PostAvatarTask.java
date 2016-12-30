@@ -2,7 +2,7 @@ package com.tnecesoc.MyInfoDemo.GlobalView.Tasks;
 
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import com.tnecesoc.MyInfoDemo.Bean.Container;
+import com.tnecesoc.MyInfoDemo.Entity.Container;
 import com.tnecesoc.MyInfoDemo.GlobalModel.Local.SessionHelper;
 import com.tnecesoc.MyInfoDemo.GlobalModel.Remote.UpdateAvatarHelper;
 import com.tnecesoc.MyInfoDemo.Utils.HttpUtil;

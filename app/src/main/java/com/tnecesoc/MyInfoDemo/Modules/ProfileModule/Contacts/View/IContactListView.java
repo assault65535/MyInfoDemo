@@ -1,6 +1,6 @@
 package com.tnecesoc.MyInfoDemo.Modules.ProfileModule.Contacts.View;
 
-import com.tnecesoc.MyInfoDemo.Bean.ProfileBean;
+import com.tnecesoc.MyInfoDemo.Entity.Profile;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface IContactListView {
 
-    void showContactList(List<ProfileBean> list);
+    void showContactList(List<Profile> list);
 
     void showFetchDataFailed();
 

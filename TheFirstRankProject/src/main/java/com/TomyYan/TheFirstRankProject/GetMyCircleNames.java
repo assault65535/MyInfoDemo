@@ -13,6 +13,7 @@ import android.widget.AdapterView;
  */
 public class GetMyCircleNames {
     public Activity a;
+    public View view;
     public String[] names=null;
     private String user;
     private String option;
@@ -26,60 +27,79 @@ public class GetMyCircleNames {
     public void handleMessage(Message msg) {
         switch (msg.what) {
             case SHOW_RESULT:
-                names=new String[10];
-                if(msg.obj.toString()!=" "){
-                    names=msg.obj.toString().split(" ");
+                names = new String[10];
+                if (msg.obj.toString() != " ") {
+                    names = msg.obj.toString().split(" ");
                 }
+
 //                SetListView listView=new SetListView();
-                if("get_circle".equals(option)&&names!=null){
-                    listView.setListView(names,a,R.id.circleName);
+                if ("get_circle".equals(option) && names != null) {
+
+                    if (view == null) {
+                        listView.setListView(names, a, R.id.circleName);
+                    } else {
+                        listView.setListView(names, view, R.id.circleName);
+                    }
                     //设置监听器
                     listView.list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent=new Intent();
-                            intent.putExtra("user",user);
-                            intent.putExtra("team",names[position]);
-                            intent.setClass(a,team_talk_window.class);
+                            Intent intent = new Intent();
+                            intent.putExtra("user", user);
+                            intent.putExtra("team", names[position]);
+                            intent.setClass(a, team_talk_window.class);
                             a.startActivity(intent);
                         }
                     });
-                }
-                else if("get-other-circle".equals(option)&&names!=null){
-                    listView.setListView(names,a,R.id.searchCircleName);
+                } else if ("get-other-circle".equals(option) && names != null) {
+                    listView.setListView(names, a, R.id.searchCircleName);
                     //设置监听器
                     listView.list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             //跳转到加入该圈页面
+                            Intent intent = new Intent();
+                            intent.putExtra("user", user);
+                            intent.putExtra("team", names[position]);
+                            intent.setClass(a, CircleEnjoy.class);
+                            a.startActivity(intent);
                         }
                     });
-                }
-                else if("get_circle_have_build".equals(option)&&names!=null){
-                    listView.setHaveBuildListView(names,a,R.id.have_build_names);
+                } else if ("get_circle_have_build".equals(option) && names != null) {
+                    if (view == null) {
+                        listView.setHaveBuildListView(names, a, R.id.have_build_names);
+                    } else {
+                        listView.setHaveBuildListView(names, view, R.id.have_build_names);
+                    }
                     listView.list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            //弹出删除该圈确定提示、进入该圈聊天
+                            //进入该圈页面（删除该圈页面）
+                            System.out.println("test点击");
+                            Intent intent = new Intent();
+                            intent.putExtra("user", user);
+                            intent.putExtra("team", names[position]);
+                            intent.setClass(a, CircleDelete.class);
+                            a.startActivity(intent);
                         }
                     });
                 }
-
                 break;
             default:
                 break;
         }
     }
     };
-    public GetMyCircleNames(){
-    }
-    public void getMyCircleNames(String user,String option){
-        this.option = option;
-        this.user = user;
-        listView = new SetListView();
-        sendRequestToServer();
+    public GetMyCircleNames(){}
 
+
+    public void getMyCircleNames(String user,String option){
+        this.option=option;
+        this.user=user;
+        listView=new SetListView();
+        sendRequestToServer();
     }
+
     private void sendRequestToServer() {
         HttpUtil.postHttpRequest(SERVER_ADDRESS, user, "",option, new HttpCallbackListener() {
             @Override
@@ -98,5 +118,9 @@ public class GetMyCircleNames {
 
     public void sendActivity(Activity a){
         this.a=a;
+    }
+
+    public void sendView(View view) {
+        this.view = view;
     }
 }

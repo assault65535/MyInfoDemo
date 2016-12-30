@@ -11,7 +11,7 @@ import java.util.HashMap;
  */
 public class LoginHelper extends RemoteModelImpl {
 
-    private static final String URL = Host.URL + "/sign-in";
+    private static final String URL = Host.SERVER_HOST + "/sign-in";
 
     public LoginHelper(final String username, final String password) {
         super(URL, new HashMap<String, String>(){{

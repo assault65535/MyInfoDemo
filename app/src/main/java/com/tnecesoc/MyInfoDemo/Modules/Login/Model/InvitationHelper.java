@@ -11,7 +11,7 @@ import java.util.HashMap;
  */
 public class InvitationHelper extends RemoteModelImpl {
 
-    private static final String URL = Host.URL + "/check-invitation";
+    private static final String URL = Host.SERVER_HOST + "/check-invitation";
 
     public InvitationHelper(final String community, final String phone) {
         super(URL, new HashMap<String, String>(){{

@@ -5,11 +5,11 @@ package com.tnecesoc.MyInfoDemo.GlobalView.Interfaces;
  */
 public interface IFollowView {
 
-    void showUnfollowSucceed();
+    void showFollowSucceed();
 
     void showFollowFailed();
 
-    void showUnfollowSuccess();
+    void showUnfollowSucceed();
 
     void showUnfollowFailed();
 

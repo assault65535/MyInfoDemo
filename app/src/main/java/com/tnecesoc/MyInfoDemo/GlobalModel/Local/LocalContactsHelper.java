@@ -4,35 +4,23 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import com.tnecesoc.MyInfoDemo.Bean.ProfileBean;
+import com.tnecesoc.MyInfoDemo.Entity.Profile;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.tnecesoc.MyInfoDemo.BuildConfig.DEBUG;
-
 /**
  * Created by Tnecesoc on 2016/12/15.
  */
 @SuppressWarnings("SqlNoDataSourceInspection")
-public class LocalContactsHelper extends SQLiteOpenHelper {
+public class LocalContactsHelper extends LocalSQLiteModelImpl {
 
     private static final String DB_NAME = "neighbor";
     private static final String TABLE_NAME = "contacts";
 
-    private Context mContext;
-
-    private SQLiteDatabase dbIn = getReadableDatabase(), dbOut = getWritableDatabase();
-
-    private LocalContactsHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
-        mContext = context;
-    }
-
     public LocalContactsHelper(Context context) {
-        this(context.getApplicationContext(), DB_NAME, null, 1);
+        super(context.getApplicationContext(), DB_NAME, null, 1);
     }
 
     @Override
@@ -40,7 +28,7 @@ public class LocalContactsHelper extends SQLiteOpenHelper {
 
         StringBuilder sql = new StringBuilder("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ( id INTEGER PRIMARY KEY AUTOINCREMENT,");
 
-        for (Field f : ProfileBean.class.getDeclaredFields()) {
+        for (Field f : Profile.class.getDeclaredFields()) {
             if (f.getType().equals(String.class) || f.getType().isEnum()) {
                 sql.append(f.getName()).append(" TEXT,");
             }
@@ -57,25 +45,32 @@ public class LocalContactsHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public ProfileBean getProfileByUsername(String username) {
+    public Profile getProfileByUsername(String username) {
 
         Cursor cursor = dbIn.query(TABLE_NAME, null, "username = ?", new String[]{username}, null, null, "nickname");
 
+        Profile ans;
+
         if (cursor.moveToFirst()) {
-            return fromCurrentCursor(cursor);
+            ans = fromCurrentCursor(cursor);
         } else {
-            return new ProfileBean();
+            ans = null;
         }
+
+        cursor.close();
+
+        return ans;
+
     }
 
-    public List<ProfileBean> getContactsListByCategory(ProfileBean.Category category) {
+    public List<Profile> getContactsListByCategory(Profile.Category category) {
 
-        List<ProfileBean> res = new ArrayList<>();
+        List<Profile> res = new ArrayList<>();
 
         Cursor cursor;
 
-        if (category == ProfileBean.Category.ARBITRARY) {
-            cursor = dbIn.query(TABLE_NAME, null, null, null, null, null, "category, nickname");
+        if (category == Profile.Category.ARBITRARY) {
+            cursor = dbIn.query(TABLE_NAME, null, "category <> ?", new String[]{Profile.Category.UNKNOWN.toString()}, null, null, "category, nickname");
         } else {
             cursor = dbIn.query(TABLE_NAME, null, "category = ?", new String[]{category.toString()}, null, null, "nickname");
         }
@@ -83,7 +78,7 @@ public class LocalContactsHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
 
-                ProfileBean item = fromCurrentCursor(cursor);
+                Profile item = fromCurrentCursor(cursor);
 
                 res.add(item);
 
@@ -95,15 +90,15 @@ public class LocalContactsHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    public ProfileBean.Category getCategoryByUsername(String username) {
+    public Profile.Category getCategoryByUsername(String username) {
         Cursor cursor = dbIn.query(TABLE_NAME, new String[]{"category"}, "username = ?", new String[]{username}, null, null, "nickname");
 
-        ProfileBean.Category res;
+        Profile.Category res;
 
         if (cursor.moveToFirst()) {
-            res = ProfileBean.Category.valueOf(cursor.getString(cursor.getColumnIndex("category")));
+            res = Profile.Category.valueOf(cursor.getString(cursor.getColumnIndex("category")));
         } else {
-            res = ProfileBean.Category.ARBITRARY;
+            res = Profile.Category.ARBITRARY;
         }
 
         cursor.close();
@@ -111,34 +106,32 @@ public class LocalContactsHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    public void putAllProfileInCategory(List<ProfileBean> profiles, ProfileBean.Category category) {
+    public void putAllProfileInCategory(List<Profile> profiles, Profile.Category category) {
 
-        for (ProfileBean profile: profiles) {
+        for (Profile profile: profiles) {
             putProfile(profile, category);
         }
 
     }
 
-    public synchronized void putProfile(ProfileBean profileBean, ProfileBean.Category category) {
+    public synchronized void putProfile(Profile profile, Profile.Category category) {
 
-        Cursor cursor = dbIn.query(TABLE_NAME, new String[]{"id"}, "username = ?", new String[]{profileBean.getUsername()}, null, null, "nickname");
-
-        System.out.println("hehe");
+        Cursor cursor = dbIn.query(TABLE_NAME, new String[]{"id"}, "username = ?", new String[]{profile.getUsername()}, null, null, "nickname");
 
         if (cursor.moveToFirst()) {
-            updateRow(toContentValues(profileBean, category));
+            updateRow(toContentValues(profile, category));
         } else {
-            addRow(toContentValues(profileBean, category));
+            addRow(toContentValues(profile, category));
         }
 
         cursor.close();
     }
 
-    private ProfileBean fromCurrentCursor(Cursor cursor) {
+    private Profile fromCurrentCursor(Cursor cursor) {
 
-        ProfileBean res = new ProfileBean();
+        Profile res = new Profile();
         try {
-            for (Field f : ProfileBean.class.getDeclaredFields()) {
+            for (Field f : Profile.class.getDeclaredFields()) {
                 f.setAccessible(true);
                 if (f.getType().equals(String.class) || f.getType().isEnum()) {
                     f.set(res, cursor.getString(cursor.getColumnIndex(f.getName())));
@@ -151,14 +144,14 @@ public class LocalContactsHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    private ContentValues toContentValues(ProfileBean profileBean, ProfileBean.Category category) {
+    private ContentValues toContentValues(Profile profile, Profile.Category category) {
         ContentValues row = new ContentValues();
 
         try {
-            for (Field f : ProfileBean.class.getDeclaredFields()) {
+            for (Field f : Profile.class.getDeclaredFields()) {
                 f.setAccessible(true);
                 if (f.getType().equals(String.class)) {
-                    row.put(f.getName(), (String)f.get(profileBean));
+                    row.put(f.getName(), (String)f.get(profile));
                 }
             }
             row.put("category", category.toString());

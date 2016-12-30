@@ -1,7 +1,5 @@
 package com.tnecesoc.MyInfoDemo.GlobalModel.Remote;
 
-import com.tnecesoc.MyInfoDemo.GlobalModel.Remote.Host;
-import com.tnecesoc.MyInfoDemo.GlobalModel.Remote.RemoteModelImpl;
 import com.tnecesoc.MyInfoDemo.Utils.HttpUtil;
 
 import java.util.HashMap;
@@ -11,7 +9,7 @@ import java.util.HashMap;
  */
 public class AddFollowRelationshipHelper extends RemoteModelImpl {
 
-    public static final String URL = Host.URL + "/add-follow-relationship";
+    public static final String URL = Host.SERVER_HOST + "/add-follow-relationship";
 
     public AddFollowRelationshipHelper(final String me, final String other) {
         super(URL, new HashMap<String, String>(){{

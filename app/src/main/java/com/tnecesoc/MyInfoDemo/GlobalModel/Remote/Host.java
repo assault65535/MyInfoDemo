@@ -5,10 +5,12 @@ package com.tnecesoc.MyInfoDemo.GlobalModel.Remote;
  */
 public class Host {
 
-    public static final String URL = "http://172.22.213.109:8080";
+    public static final String SERVER_HOST = "http://172.22.213.109:8080";
+
+    public static final String BROKER_HOST = "tcp://172.22.213.109:1883";
 
     public static final String findAvatarUrlByUsername(String username) {
-        return URL + "/user-avatars/" + username + ".png";
+        return SERVER_HOST + "/user-avatars/" + username + ".png";
     }
 
 }

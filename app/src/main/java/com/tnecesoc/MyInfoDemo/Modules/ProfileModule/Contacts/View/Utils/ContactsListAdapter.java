@@ -1,19 +1,14 @@
 package com.tnecesoc.MyInfoDemo.Modules.ProfileModule.Contacts.View.Utils;
 
-import android.app.Activity;
-import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.tnecesoc.MyInfoDemo.Bean.ProfileBean;
+import com.tnecesoc.MyInfoDemo.Entity.Profile;
 import com.tnecesoc.MyInfoDemo.GlobalModel.Remote.Host;
 import com.tnecesoc.MyInfoDemo.R;
-import org.w3c.dom.Text;
 
 import java.util.Collection;
 import java.util.List;
@@ -23,20 +18,20 @@ import java.util.List;
  */
 public class ContactsListAdapter extends BaseAdapter {
 
-    private List<ProfileBean> mContacts;
+    private List<Profile> mContacts;
     private LayoutInflater mInflater;
 
-    public ContactsListAdapter(List<ProfileBean> contacts, LayoutInflater inflater) {
+    public ContactsListAdapter(List<Profile> contacts, LayoutInflater inflater) {
         this.mContacts = contacts;
         this.mInflater = inflater;
     }
 
-    public void addItem(ProfileBean profileBean) {
-        mContacts.add(profileBean);
+    public void addItem(Profile profile) {
+        mContacts.add(profile);
         notifyDataSetChanged();
     }
 
-    public void addAllItem(Collection<? extends ProfileBean> collection) {
+    public void addAllItem(Collection<? extends Profile> collection) {
         mContacts.addAll(collection);
         notifyDataSetChanged();
     }
@@ -52,7 +47,7 @@ public class ContactsListAdapter extends BaseAdapter {
     }
 
     @Override
-    public ProfileBean getItem(int position) {
+    public Profile getItem(int position) {
         return mContacts.get(position);
     }
 

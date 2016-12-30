@@ -1,8 +1,5 @@
 package com.tnecesoc.MyInfoDemo.GlobalModel.Remote;
 
-import com.tnecesoc.MyInfoDemo.GlobalModel.Remote.Host;
-import com.tnecesoc.MyInfoDemo.GlobalModel.Remote.RemoteModelImpl;
-
 import java.util.HashMap;
 
 /**
@@ -10,7 +7,7 @@ import java.util.HashMap;
  */
 public class BlockUserHelper extends RemoteModelImpl {
 
-    public static final String URL = Host.URL + "/block-user";
+    public static final String URL = Host.SERVER_HOST + "/block-user";
 
     public BlockUserHelper(final String me, final String other) {
         super(URL, new HashMap<String, String>(){{

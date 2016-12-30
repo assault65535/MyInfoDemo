@@ -1,7 +1,7 @@
 package com.tnecesoc.MyInfoDemo.Modules.ProfileModule.Contacts.Model;
 
 import com.google.gson.reflect.TypeToken;
-import com.tnecesoc.MyInfoDemo.Bean.ProfileBean;
+import com.tnecesoc.MyInfoDemo.Entity.Profile;
 import com.tnecesoc.MyInfoDemo.GlobalModel.Remote.Host;
 import com.tnecesoc.MyInfoDemo.GlobalModel.Remote.RemoteModelImpl;
 import com.tnecesoc.MyInfoDemo.Utils.HttpUtil;
@@ -10,14 +10,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.tnecesoc.MyInfoDemo.Modules.ProfileModule.Contacts.Model.ViewFriendListHelper.CLASS_TOKEN;
-
 /**
  * Created by Tnecesoc on 2016/12/11.
  */
 public class ViewFollowUserHelper extends RemoteModelImpl {
 
-    public static final String URL = Host.URL + "/view-follow-list";
+    public static final String URL = Host.SERVER_HOST + "/view-follow-list";
 
     public ViewFollowUserHelper(final String username) {
         super(URL, new HashMap<String, String>() {{
@@ -31,8 +29,8 @@ public class ViewFollowUserHelper extends RemoteModelImpl {
     }
 
     @SuppressWarnings("unchecked")
-    public List<ProfileBean> doQuery(HttpUtil.HttpErrorListener listener) {
-        List<ProfileBean> res = super.doQueryForObject(new TypeToken<List<ProfileBean>>() {}, listener);
-        return res == null ? new ArrayList<ProfileBean>() : res;
+    public List<Profile> doQuery(HttpUtil.HttpErrorListener listener) {
+        List<Profile> res = super.doQueryForObject(new TypeToken<List<Profile>>() {}, listener);
+        return res == null ? new ArrayList<Profile>() : res;
     }
 }

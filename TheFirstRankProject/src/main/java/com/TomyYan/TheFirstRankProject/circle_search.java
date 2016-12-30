@@ -1,18 +1,11 @@
 package com.TomyYan.TheFirstRankProject;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.TomyYan.GlobalModel.Local.SessionHelper;
 
 /**
  * Created by dell on 2016/9/5.
@@ -22,6 +15,7 @@ public class circle_search extends Activity {
     private String user;
     private String[] names;
     private ImageButton backButton;
+    private SessionHelper sessionHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -32,8 +26,12 @@ public class circle_search extends Activity {
         backButton=(ImageButton)findViewById(R.id.circle_search_back);
         backButton.setOnClickListener(new ButtonListener());
         //获取上一Activity的用户信息
-        Intent intent=getIntent();
-        user=intent.getStringExtra("user");
+//        Intent intent=getIntent();
+//        user=intent.getStringExtra("user");
+
+        sessionHelper = new SessionHelper(circle_search.this);
+        user=sessionHelper.getSessionAttribute(SessionHelper.KEY_PHONE);
+
         //获取搜索圈信息，设置ListView
 //        GetMyCircleNames getName=new GetMyCircleNames();
 //        //names=getName.getMyCircleNames(user,"circle_search");//2:option:获取circle_search信息

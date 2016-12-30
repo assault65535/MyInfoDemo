@@ -12,7 +12,7 @@ import java.util.HashMap;
  */
 public class UpdateAvatarHelper extends RemoteModelImpl {
 
-    public static final String URL = Host.URL + "/upload-avatar";
+    public static final String URL = Host.SERVER_HOST + "/upload-avatar";
 
     private String username;
     private LocalFileHelper localFileHelper = new LocalFileHelper();

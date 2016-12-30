@@ -10,6 +10,7 @@ import android.view.View;
 import com.tnecesoc.MyInfoDemo.GlobalModel.Local.SessionHelper;
 import com.tnecesoc.MyInfoDemo.Modules.SplashScreen.View.IndexActivity;
 import com.tnecesoc.MyInfoDemo.R;
+import com.tnecesoc.MyInfoDemo.Utils.DataCleaner;
 
 public class SettingsMainActivity extends AppCompatActivity {
 
@@ -24,15 +25,16 @@ public class SettingsMainActivity extends AppCompatActivity {
             @Override
             public void onClick(final View v) {
 
-                dialog.setTitle("You sure?")
-                        .setPositiveButton("Log out", new DialogInterface.OnClickListener() {
+                dialog.setTitle(R.string.warn_you_sure)
+                        .setPositiveButton(R.string.log_out, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 new SessionHelper(v.getContext()).terminateSession();
                                 startActivity(new Intent(SettingsMainActivity.this, IndexActivity.class));
                                 finishAffinity();
+                                DataCleaner.cleanDatabases(SettingsMainActivity.this.getApplicationContext());
                             }
-                        }).setNegativeButton("Cancel", null).show();
+                        }).setNegativeButton(R.string.hint_choice_negative, null).show();
 
             }
         });

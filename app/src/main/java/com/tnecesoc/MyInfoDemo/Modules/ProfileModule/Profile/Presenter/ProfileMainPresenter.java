@@ -1,7 +1,7 @@
 package com.tnecesoc.MyInfoDemo.Modules.ProfileModule.Profile.Presenter;
 
 import android.graphics.Bitmap;
-import com.tnecesoc.MyInfoDemo.Bean.ProfileBean;
+import com.tnecesoc.MyInfoDemo.Entity.Profile;
 import com.tnecesoc.MyInfoDemo.GlobalModel.Local.SessionHelper;
 import com.tnecesoc.MyInfoDemo.GlobalView.Tasks.PostAvatarTask;
 import com.tnecesoc.MyInfoDemo.Modules.ProfileModule.Profile.Tasks.PostProfileTask;
@@ -29,7 +29,7 @@ public class ProfileMainPresenter {
         showProfileView.showProfile(session.getEntireProfile());
     }
 
-    public void performUpdateProfile(ProfileBean newProfile) {
+    public void performUpdateProfile(Profile newProfile) {
         new PostProfileTask(newProfile).execute(sessionHelper.getSessionAttribute(SessionHelper.KEY_PASSWORD));
         sessionHelper.updateSession(newProfile);
     }

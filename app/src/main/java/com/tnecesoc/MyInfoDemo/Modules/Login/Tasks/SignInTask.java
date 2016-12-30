@@ -2,8 +2,8 @@ package com.tnecesoc.MyInfoDemo.Modules.Login.Tasks;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import com.tnecesoc.MyInfoDemo.Bean.Container;
-import com.tnecesoc.MyInfoDemo.Bean.ProfileBean;
+import com.tnecesoc.MyInfoDemo.Entity.Container;
+import com.tnecesoc.MyInfoDemo.Entity.Profile;
 import com.tnecesoc.MyInfoDemo.GlobalModel.Local.SessionHelper;
 import com.tnecesoc.MyInfoDemo.GlobalModel.Remote.ViewProfileHelper;
 import com.tnecesoc.MyInfoDemo.Modules.Login.Model.LoginHelper;
@@ -35,7 +35,7 @@ public class SignInTask extends AsyncTask<String, Void, SignInTask.Cond> {
         final String username = params[0];
         final String password = params[1];
 
-        final Container<ProfileBean> profileBeanContainer = new Container<>();
+        final Container<Profile> profileBeanContainer = new Container<>();
 
         new LoginHelper(username, password).doRequest(new HttpUtil.HttpResponseListener() {
             @Override

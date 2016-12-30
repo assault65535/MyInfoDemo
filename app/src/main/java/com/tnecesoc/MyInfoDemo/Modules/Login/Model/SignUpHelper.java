@@ -11,7 +11,7 @@ import java.util.HashMap;
  */
 public class SignUpHelper extends RemoteModelImpl {
 
-    private static final String URL = Host.URL + "/sign-up";
+    private static final String URL = Host.SERVER_HOST + "/sign-up";
 
     public SignUpHelper(final String community, final String phone, final String username, final String password) {
         super(URL, new HashMap<String, String>(){{

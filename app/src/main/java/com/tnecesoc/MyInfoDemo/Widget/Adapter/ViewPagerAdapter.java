@@ -21,9 +21,10 @@ public class ViewPagerAdapter extends PagerAdapter {
     public ViewPagerAdapter(Map<String, View> mTitleAndViews) {
         mTitles = new ArrayList<>(mTitleAndViews.keySet());
         mViews = new ArrayList<>(mTitleAndViews.values());
-        if (DEBUG) {
-            System.out.println("HEHE");
-        }
+    }
+
+    public View getItemByTitle(String title) {
+        return mViews.get(mTitles.indexOf(title));
     }
 
     @Override

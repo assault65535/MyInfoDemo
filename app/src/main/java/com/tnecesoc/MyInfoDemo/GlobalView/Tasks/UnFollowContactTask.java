@@ -1,10 +1,10 @@
 package com.tnecesoc.MyInfoDemo.GlobalView.Tasks;
 
 import android.os.AsyncTask;
-import com.tnecesoc.MyInfoDemo.Bean.Container;
-import com.tnecesoc.MyInfoDemo.Bean.ProfileBean;
+import com.tnecesoc.MyInfoDemo.Entity.Container;
+import com.tnecesoc.MyInfoDemo.Entity.Profile;
 import com.tnecesoc.MyInfoDemo.GlobalModel.Local.LocalContactsHelper;
-import com.tnecesoc.MyInfoDemo.GlobalModel.Remote.AddFollowRelationshipHelper;
+import com.tnecesoc.MyInfoDemo.GlobalModel.Remote.RemoveFollowRelationshipHelper;
 import com.tnecesoc.MyInfoDemo.GlobalModel.Remote.ViewProfileHelper;
 import com.tnecesoc.MyInfoDemo.GlobalView.Interfaces.IFollowView;
 import com.tnecesoc.MyInfoDemo.Utils.HttpUtil;
@@ -19,7 +19,7 @@ public class UnFollowContactTask extends AsyncTask<String, Void, UnFollowContact
     }
 
     IFollowView view;
-    ProfileBean.Category category;
+    Profile.Category category;
     LocalContactsHelper helper;
 
     public UnFollowContactTask(IFollowView view, LocalContactsHelper helper) {
@@ -37,7 +37,7 @@ public class UnFollowContactTask extends AsyncTask<String, Void, UnFollowContact
 
         category = helper.getCategoryByUsername(other);
 
-        new AddFollowRelationshipHelper(me, other).doRequest(new HttpUtil.HttpResponseListener() {
+        new RemoveFollowRelationshipHelper(me, other).doRequest(new HttpUtil.HttpResponseListener() {
             @Override
             public void onSuccess(String responseContent) {
                 res.setValue(Cond.SUCCESS);
@@ -51,7 +51,7 @@ public class UnFollowContactTask extends AsyncTask<String, Void, UnFollowContact
 
         if (res.getValue() == Cond.SUCCESS) {
 
-            ProfileBean othersProfile = new ViewProfileHelper(other).viewProfile(new HttpUtil.HttpErrorListener() {
+            Profile othersProfile = new ViewProfileHelper(other).viewProfile(new HttpUtil.HttpErrorListener() {
                 @Override
                 public void onError(Exception e) {
                     res.setValue(Cond.NETWORK_FAILURE);
@@ -60,10 +60,10 @@ public class UnFollowContactTask extends AsyncTask<String, Void, UnFollowContact
 
             switch (category) {
                 case FRIEND:
-                    category = ProfileBean.Category.FOLLOWER;
+                    category = Profile.Category.FOLLOWER;
                     break;
                 default:
-                    category = ProfileBean.Category.ARBITRARY;
+                    category = Profile.Category.ARBITRARY;
                     break;
             }
 

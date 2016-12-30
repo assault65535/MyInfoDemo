@@ -45,7 +45,7 @@
     <style name="myToolbarStyle" parent="@style/Widget.AppCompat.Toolbar">
         <item name="titleMargins">12dp</item>
     </style>
-    
+
     <style name="AppPopupMenuStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
         <item name="overlapAnchor">false</item>
         <item name="android:dropDownHorizontalOffset">-8dp</item>

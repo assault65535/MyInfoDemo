@@ -2,17 +2,18 @@ package com.tnecesoc.MyInfoDemo.Modules.Homepage.Presenter;
 
 import android.content.Context;
 import com.tnecesoc.MyInfoDemo.GlobalModel.Local.SessionHelper;
-import com.tnecesoc.MyInfoDemo.Modules.Homepage.Tasks.FetchContactsCountTask;
-import com.tnecesoc.MyInfoDemo.Modules.Homepage.View.IMainPageView;
+import com.tnecesoc.MyInfoDemo.Modules.Homepage.Tasks.SyncContactsCountTask;
+import com.tnecesoc.MyInfoDemo.Modules.Homepage.View.INavView;
+import com.tnecesoc.MyInfoDemo.Utils.SyncMsgCntTask;
 
 /**
  * Created by Tnecesoc on 2016/11/10.
  */
 public class NavigatePresenter {
 
-    IMainPageView view;
+    INavView view;
 
-    public NavigatePresenter(IMainPageView navigateActivity) {
+    public NavigatePresenter(INavView navigateActivity) {
         this.view = navigateActivity;
     }
 
@@ -25,7 +26,8 @@ public class NavigatePresenter {
 
     public void performFetchUserCommunicationInfo(Context context) {
         String username = new SessionHelper(context).getSessionAttribute(SessionHelper.KEY_USERNAME);
-        new FetchContactsCountTask(view, context).execute(username);
+        new SyncContactsCountTask(view, context).execute(username);
+        new SyncMsgCntTask(context, view).execute();
     }
 
 }

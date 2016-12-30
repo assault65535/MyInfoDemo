@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="@color/colorPrimary"
+        tools:context="com.tnecesoc.MyInfoDemo.Modules.Homepage.View.SearchContactActivity">
+
+    <EditText
+            android:id="@+id/txt_toolbar_search_contact"
+            android:hint="@string/search_a_contact_by_id"
+            android:background="@drawable/btn_white_stroke"
+            android:textCursorDrawable="@null"
+            android:textColor="@android:color/white"
+            android:layout_centerInParent="true"
+            android:padding="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toEndOf="@android:id/home"
+            android:layout_toStartOf="@+id/btn_toolbar_search_contact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <ImageButton
+            android:id="@+id/btn_toolbar_search_contact"
+            android:background="@drawable/btn_transparent_background"
+            android:layout_centerInParent="true"
+            android:src="@drawable/find"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_alignParentEnd="true"
+            android:scaleType="fitCenter"
+            android:layout_width="36dp"
+            android:layout_height="56dp"/>
+
+
+</RelativeLayout>

@@ -4,13 +4,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.tnecesoc.MyInfoDemo.Bean.Container;
+import com.tnecesoc.MyInfoDemo.Entity.Container;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -109,17 +108,12 @@ public class HttpUtil {
 
             URL server = new URL(url);
             HttpURLConnection connection = (HttpURLConnection) server.openConnection();
-
-
             connection.setDoInput(true);
             connection.setDoOutput(true);
             connection.setRequestMethod("POST");
             connection.setConnectTimeout(2000);
-
             customizeHeaders(connection, headers);
             customizeParameters(connection, parameters);
-
-
             connection.connect();
 
             InputStreamReader reader = new InputStreamReader(connection.getInputStream());

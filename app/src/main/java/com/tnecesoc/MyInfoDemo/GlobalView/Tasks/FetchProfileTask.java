@@ -1,8 +1,8 @@
 package com.tnecesoc.MyInfoDemo.GlobalView.Tasks;
 
 import android.os.AsyncTask;
-import com.tnecesoc.MyInfoDemo.Bean.Container;
-import com.tnecesoc.MyInfoDemo.Bean.ProfileBean;
+import com.tnecesoc.MyInfoDemo.Entity.Container;
+import com.tnecesoc.MyInfoDemo.Entity.Profile;
 import com.tnecesoc.MyInfoDemo.GlobalModel.Local.LocalContactsHelper;
 import com.tnecesoc.MyInfoDemo.GlobalModel.Remote.ViewProfileHelper;
 import com.tnecesoc.MyInfoDemo.GlobalView.Interfaces.IShowProfileView;
@@ -22,7 +22,8 @@ public class FetchProfileTask extends AsyncTask<String, Void, FetchProfileTask.C
 
     private IShowProfileView showProfileView;
     private LocalContactsHelper helper;
-    private ProfileBean profile;
+    private Profile profile;
+    private String username;
     private int contacts = 0, messages = 0, posts = 0;
 
     public FetchProfileTask(IShowProfileView showProfileView) {
@@ -31,7 +32,21 @@ public class FetchProfileTask extends AsyncTask<String, Void, FetchProfileTask.C
     }
 
     @Override
+    protected void onProgressUpdate(Void... values) {
+        showProfileView.showProfile(profile, helper.getCategoryByUsername(username));
+    }
+
+    @Override
     protected Cond doInBackground(String... params) {
+
+        username = params[0];
+
+        profile = helper.getProfileByUsername(username);
+
+        if (profile != null) {
+            publishProgress();
+        }
+
 
         final Container<Cond> res = new Container<>(Cond.SUCCESS);
 
@@ -42,12 +57,11 @@ public class FetchProfileTask extends AsyncTask<String, Void, FetchProfileTask.C
             }
         };
 
-        String username = params[0];
 
         profile = new ViewProfileHelper(username).viewProfile(listener);
 
         if (profile == null) {
-            profile = new ProfileBean();
+            profile = helper.getProfileByUsername(username);
         }
 
         contacts += new ViewFollowUserHelper(username).doQuery(listener).size();
@@ -62,12 +76,12 @@ public class FetchProfileTask extends AsyncTask<String, Void, FetchProfileTask.C
     @Override
     protected void onPostExecute(Cond cond) {
 
-        if (!profile.isEmpty() && cond == Cond.SUCCESS) {
-            showProfileView.showProfile(profile, helper.getCategoryByUsername(profile.getUsername()));
-            showProfileView.showCommunicationData(contacts, messages, posts);
-        } else {
+        if (cond == Cond.NETWORK_FAILURE) {
             showProfileView.showFetchDataFailed();
         }
+
+        showProfileView.showProfile(profile, helper.getCategoryByUsername(username));
+        showProfileView.showCommunicationData(contacts, messages, posts);
 
     }
 }

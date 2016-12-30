@@ -1,8 +1,8 @@
 package com.tnecesoc.MyInfoDemo.Modules.ProfileModule.Profile.Tasks;
 
 import android.os.AsyncTask;
-import com.tnecesoc.MyInfoDemo.Bean.Container;
-import com.tnecesoc.MyInfoDemo.Bean.ProfileBean;
+import com.tnecesoc.MyInfoDemo.Entity.Container;
+import com.tnecesoc.MyInfoDemo.Entity.Profile;
 import com.tnecesoc.MyInfoDemo.Modules.ProfileModule.Profile.Model.UpdateProfileHelper;
 import com.tnecesoc.MyInfoDemo.Utils.HttpUtil;
 
@@ -16,9 +16,9 @@ public class PostProfileTask extends AsyncTask<String, Void, PostProfileTask.Con
         SUCCESS, NETWORK_FAILURE, POSTING
     }
 
-    private ProfileBean data;
+    private Profile data;
 
-    public PostProfileTask(ProfileBean data) {
+    public PostProfileTask(Profile data) {
         this.data = data;
     }
 

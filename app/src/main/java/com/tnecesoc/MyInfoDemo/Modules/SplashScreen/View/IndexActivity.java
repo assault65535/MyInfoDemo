@@ -25,7 +25,7 @@ public class IndexActivity extends AppCompatActivity implements ILoadingView {
     @Override
     protected void onStart() {
         super.onStart();
-        new IndexPresenter(this).performIndexing();
+        new IndexPresenter(this).performIndexing(this);
     }
 
     @Override
@@ -49,12 +49,12 @@ public class IndexActivity extends AppCompatActivity implements ILoadingView {
         if (lbl_hi != null) {
             lbl_hi.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/comic.ttf"));
         }
-        if (lbl_meet_with_your != null) {
-            lbl_meet_with_your.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/microsoft_yahei_light.ttf"));
-        }
-        if (lbl_neighbor != null) {
-            lbl_neighbor.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/microsoft_yahei_light.ttf"));
-        }
+//        if (lbl_meet_with_your != null) {
+//            lbl_meet_with_your.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/microsoft_yahei_light.ttf"));
+//        }
+//        if (lbl_neighbor != null) {
+//            lbl_neighbor.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/microsoft_yahei_light.ttf"));
+//        }
 
         findViewById(R.id.lbl_index_skip).setOnClickListener(new View.OnClickListener() {
             @Override

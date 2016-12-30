@@ -8,12 +8,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.tnecesoc.MyInfoDemo.Bean.ProfileBean;
+import com.tnecesoc.MyInfoDemo.Entity.Profile;
 import com.tnecesoc.MyInfoDemo.GlobalModel.Remote.Host;
 import com.tnecesoc.MyInfoDemo.Modules.Homepage.Presenter.NavigatePresenter;
 import com.tnecesoc.MyInfoDemo.Modules.Homepage.View.AboutActivity;
-import com.tnecesoc.MyInfoDemo.Modules.Homepage.View.IMainPageView;
+import com.tnecesoc.MyInfoDemo.Modules.Homepage.View.INavView;
 import com.tnecesoc.MyInfoDemo.Modules.ProfileModule.Contacts.View.ContactsMainActivity;
+import com.tnecesoc.MyInfoDemo.Modules.ProfileModule.Messages.RecentChatsActivity;
 import com.tnecesoc.MyInfoDemo.Modules.ProfileModule.Profile.View.ProfileMainActivity;
 import com.tnecesoc.MyInfoDemo.Modules.ProfileModule.Settings.SettingsMainActivity;
 import com.tnecesoc.MyInfoDemo.R;
@@ -23,7 +24,7 @@ import java.util.Locale;
 /**
  * Created by Tnecesoc on 2016/12/16.
  */
-public class NavigateFrame implements IMainPageView {
+public class NavigateViewHolder implements INavView {
 
     public static final int REQUEST_CHANGE_PROFILE = 1;
 
@@ -36,16 +37,22 @@ public class NavigateFrame implements IMainPageView {
 
     private NavigatePresenter presenter;
 
-    public NavigateFrame(View holder, View.OnClickListener listener) {
+    public NavigateViewHolder(View holder, View.OnClickListener listener) {
         onCreate(holder);
         registerOnClickListener(holder, listener);
     }
 
-    public NavigateFrame(Activity holder, View.OnClickListener listener) {
+    public NavigateViewHolder(Activity holder, View.OnClickListener listener) {
         this(holder.getWindow().getDecorView().getRootView(), listener);
     }
 
-    // TODO implementation of the reminder
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void notifyMessagesAdded() {
+        int count = Integer.valueOf(txt_message_count.getText().toString());
+        txt_message_count.setText(Integer.toString(count + 1));
+    }
+
     @Override
     public void showCurrentContacts(int count, boolean shouldEmphasize) {
         txt_contact_count.setText(String.format(Locale.getDefault(), "%d", count));
@@ -64,16 +71,16 @@ public class NavigateFrame implements IMainPageView {
     @SuppressWarnings("Duplicates")
     @SuppressLint("SetTextI18n")
     @Override
-    public void showUserInfo(ProfileBean profileBean) {
-        txt_username.setText("@" + profileBean.getUsername());
-        txt_nickname.setText(profileBean.getNickname());
-        txt_motto.setText(profileBean.getMotto());
+    public void showUserInfo(Profile profile) {
+        txt_username.setText("@" + profile.getUsername());
+        txt_nickname.setText(profile.getNickname());
+        txt_motto.setText(profile.getMotto());
 
-        Uri avatar_uri = Uri.parse(Host.URL + "/user-avatars/" + profileBean.getUsername() + ".png");
+        Uri avatar_uri = Uri.parse(Host.SERVER_HOST + "/user-avatars/" + profile.getUsername() + ".png");
 
         img_avatar.setImageURI(avatar_uri);
 
-        switch (profileBean.getGender()) {
+        switch (profile.getGender()) {
             case "MALE":
                 img_gender.setImageResource(R.drawable.male);
                 break;
@@ -101,6 +108,10 @@ public class NavigateFrame implements IMainPageView {
         img_gender = (ImageView) holder.findViewById(R.id.img_profile_page_gender);
 
         presenter.performFetchUserInfo(holder.getContext());
+    }
+
+    public void onResume(View holder) {
+        presenter.performFetchUserCommunicationInfo(holder.getContext());
     }
 
     @SuppressWarnings({"ConstantConditions", "deprecation"})
@@ -138,7 +149,7 @@ public class NavigateFrame implements IMainPageView {
                 holder.startActivity(new Intent(holder, ContactsMainActivity.class));
                 break;
             case R.id.layout_profile_page_messages:
-//                holder.startActivity(new Intent(NavigateActivity.this, MessagesMainActivity.class));
+                holder.startActivity(new Intent(holder, RecentChatsActivity.class));
                 break;
             case R.id.layout_profile_page_posts:
 //                holder.startActivity(new Intent(NavigateActivity.this, PostsMainActivity.class));

@@ -1,8 +1,8 @@
 package com.tnecesoc.MyInfoDemo.GlobalView.Tasks;
 
 import android.os.AsyncTask;
-import com.tnecesoc.MyInfoDemo.Bean.Container;
-import com.tnecesoc.MyInfoDemo.Bean.ProfileBean;
+import com.tnecesoc.MyInfoDemo.Entity.Container;
+import com.tnecesoc.MyInfoDemo.Entity.Profile;
 import com.tnecesoc.MyInfoDemo.GlobalModel.Local.LocalContactsHelper;
 import com.tnecesoc.MyInfoDemo.GlobalModel.Remote.ViewProfileHelper;
 import com.tnecesoc.MyInfoDemo.GlobalView.Interfaces.IFollowView;
@@ -19,7 +19,7 @@ public class FollowContactTask extends AsyncTask<String, Void, FollowContactTask
     }
 
     IFollowView view;
-    ProfileBean.Category category;
+    Profile.Category category;
     LocalContactsHelper helper;
 
     public FollowContactTask(IFollowView view, LocalContactsHelper helper) {
@@ -51,7 +51,7 @@ public class FollowContactTask extends AsyncTask<String, Void, FollowContactTask
 
         if (res.getValue() == Cond.SUCCESS) {
 
-            ProfileBean othersProfile = new ViewProfileHelper(other).viewProfile(new HttpUtil.HttpErrorListener() {
+            Profile othersProfile = new ViewProfileHelper(other).viewProfile(new HttpUtil.HttpErrorListener() {
                 @Override
                 public void onError(Exception e) {
                     res.setValue(Cond.NETWORK_FAILURE);
@@ -62,11 +62,11 @@ public class FollowContactTask extends AsyncTask<String, Void, FollowContactTask
                 case FOLLOWER:
                 case FOLLOW:
                 case FRIEND:
-                    category = ProfileBean.Category.FRIEND;
+                    category = Profile.Category.FRIEND;
                     break;
                 case ARBITRARY:
                 default:
-                    category = ProfileBean.Category.FOLLOW;
+                    category = Profile.Category.FOLLOW;
                     break;
             }
 
@@ -80,7 +80,7 @@ public class FollowContactTask extends AsyncTask<String, Void, FollowContactTask
     protected void onPostExecute(Cond cond) {
 
         if (cond == Cond.SUCCESS) {
-            view.showUnfollowSucceed();
+            view.showFollowSucceed();
         } else {
             view.showFollowFailed();
         }

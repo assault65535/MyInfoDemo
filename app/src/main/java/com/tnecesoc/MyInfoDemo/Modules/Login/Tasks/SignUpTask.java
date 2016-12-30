@@ -2,10 +2,11 @@ package com.tnecesoc.MyInfoDemo.Modules.Login.Tasks;
 
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import com.tnecesoc.MyInfoDemo.Bean.Container;
+import com.tnecesoc.MyInfoDemo.Entity.Container;
 import com.tnecesoc.MyInfoDemo.Modules.Login.Model.InvitationHelper;
 import com.tnecesoc.MyInfoDemo.Modules.Login.Model.SignUpCheckHelper;
 import com.tnecesoc.MyInfoDemo.Modules.Login.Model.SignUpHelper;
+import com.tnecesoc.MyInfoDemo.Modules.Login.Model.SignUpTomyHelper;
 import com.tnecesoc.MyInfoDemo.Modules.Login.View.ISignUpView;
 import com.tnecesoc.MyInfoDemo.GlobalModel.Remote.UpdateAvatarHelper;
 import com.tnecesoc.MyInfoDemo.Utils.HttpUtil;
@@ -32,6 +33,10 @@ public class SignUpTask extends AsyncTask<String, Void, SignUpTask.Cond> {
     protected Cond doInBackground(String... params) {
 
         final Container<SignUpTask.Cond> ans = new Container<>(Cond.CHECKING);
+
+        if (params.length != 4) {
+            throw new IllegalArgumentException();
+        }
 
         String community = params[0];
         String phone = params[1];
@@ -85,6 +90,20 @@ public class SignUpTask extends AsyncTask<String, Void, SignUpTask.Cond> {
         }
 
         if (ans.getValue() == Cond.CHECKING) {
+            new SignUpTomyHelper(phone, password).doRequest(new HttpUtil.HttpResponseListener() {
+                @Override
+                public void onSuccess(String responseContent) {
+                    ans.setValue(Cond.SUCCESS);
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    ans.setValue(Cond.NETWORK_FAILURE);
+                }
+            });
+        }
+
+        if (ans.getValue() == Cond.SUCCESS && avatar != null) {
             new UpdateAvatarHelper(username, avatar).doRequest(new HttpUtil.HttpResponseListener() {
                 @Override
                 public void onSuccess(String responseContent) {
@@ -97,6 +116,8 @@ public class SignUpTask extends AsyncTask<String, Void, SignUpTask.Cond> {
                 }
             });
         }
+
+
 
         return ans.getValue();
     }

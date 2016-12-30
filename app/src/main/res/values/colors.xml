@@ -15,12 +15,13 @@
     <color name="white">#FFFFFF</color>
     <color name="blue">#0000FF</color>
     <color name="lightRed">#90FF0000</color>
-    <color name="lightGray">#90505050</color>
+    <color name="lightGray">#505050</color>
 
     <color name="colorScreenBackground">#ECECEC</color>
     <color name="skyBlue">#00BFFF</color>
     <color name="deepSkyBlue">#00A7FF</color>
     <color name="brightGreen">#03c03c</color>
 
-    <color name="black">#303030</color>
+    <color name="transparentSelected">#10000000</color>
+
 </resources>

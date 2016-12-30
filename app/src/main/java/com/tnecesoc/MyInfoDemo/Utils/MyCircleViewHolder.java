@@ -1,9 +1,11 @@
 package com.tnecesoc.MyInfoDemo.Utils;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.TomyYan.TheFirstRankProject.*;
@@ -14,12 +16,13 @@ import java.util.List;
 /**
  * Created by Tnecesoc on 2016/12/17.
  */
-public class MyCircleFrame {
+public class MyCircleViewHolder {
 
     private String user = null;
     private Button build;
+    private SessionHelper sessionHelper;
 
-    public MyCircleFrame(Activity holder, View viewHolder, View.OnClickListener listener) {
+    public MyCircleViewHolder(Activity holder, View viewHolder, View.OnClickListener listener) {
         onCreate(holder, viewHolder, listener);
     }
 
@@ -28,15 +31,17 @@ public class MyCircleFrame {
         getInfoFromLastActivity(holder);
         //获取我的圈信息
         GetMyCircleNames getName = new GetMyCircleNames();
+        getName.sendView(viewHolder);
         getName.sendActivity(holder);
-        getName.getMyCircleNames(user,"get_circle");//user,option:获取my_circle
+        getName.getMyCircleNames(user, "get_circle");//user,option:获取my_circle
 
         setListener(viewHolder, listener);
     }
 
 
-    private void getInfoFromLastActivity(Activity holder){
-        user = new SessionHelper(holder).getSessionAttribute(SessionHelper.KEY_USERNAME);
+    private void getInfoFromLastActivity(Activity holder) {
+        sessionHelper = new SessionHelper(holder);
+        user = sessionHelper.getSessionAttribute(com.TomyYan.GlobalModel.Local.SessionHelper.KEY_PHONE);
     }
 
     private void setListener(View holder, View.OnClickListener buttonListener) {
@@ -45,15 +50,15 @@ public class MyCircleFrame {
     }
 
     public void doCircleSearch(Activity holder) {
-        PageChange pageChange=new PageChange();
+        PageChange pageChange = new PageChange();
         pageChange.pageChange(user, holder, circle_search.class);
     }
 
 
-    public void onClick(Activity holder, View v){
-        if(v.getId()==R.id.build){
-            PageChange pageChange=new PageChange();
-            pageChange.pageChange(user,holder,circle_build.class);
+    public void onClick(Activity holder, View v) {
+        if (v.getId() == R.id.build) {
+            PageChange pageChange = new PageChange();
+            pageChange.pageChange(user, holder, circle_build.class);
         }
     }
 

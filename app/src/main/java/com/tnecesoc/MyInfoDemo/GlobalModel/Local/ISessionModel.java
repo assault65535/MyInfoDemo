@@ -1,6 +1,6 @@
 package com.tnecesoc.MyInfoDemo.GlobalModel.Local;
 
-import com.tnecesoc.MyInfoDemo.Bean.ProfileBean;
+import com.tnecesoc.MyInfoDemo.Entity.Profile;
 
 /**
  * Created by Tnecesoc on 2016/11/5.
@@ -9,9 +9,9 @@ interface ISessionModel {
 
     boolean isOnline();
 
-    void beginSession(String username, String password, ProfileBean profileBean);
+    void beginSession(String username, String password, Profile profile);
 
-    void updateSession(ProfileBean profileBean);
+    void updateSession(Profile profile);
 
     void terminateSession();
 

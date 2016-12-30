@@ -8,7 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ListView;
-import com.tnecesoc.MyInfoDemo.Bean.ProfileBean;
+import com.tnecesoc.MyInfoDemo.Entity.Profile;
 import com.tnecesoc.MyInfoDemo.GlobalView.ShowProfileViewImpl;
 import com.tnecesoc.MyInfoDemo.Modules.ProfileModule.Contacts.Presenter.ContactsPagePresenter;
 import com.tnecesoc.MyInfoDemo.Modules.ProfileModule.Contacts.View.Utils.ContactsListAdapter;
@@ -17,7 +17,7 @@ import com.tnecesoc.MyInfoDemo.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.tnecesoc.MyInfoDemo.Bean.ProfileBean.Category.*;
+import static com.tnecesoc.MyInfoDemo.Entity.Profile.Category.*;
 
 /**
  * Created by Tnecesoc on 2016/12/12.
@@ -26,12 +26,12 @@ public class ContactsFragment extends ListFragment implements IContactListView {
 
     public static final String REQUEST_SYNC = "sync";
 
-    private ProfileBean.Category mCategory;
+    private Profile.Category mCategory;
     private ContactsListAdapter mContactsListAdapter;
     private ContactsPagePresenter mPresenter;
 
     @Override
-    public void showContactList(@NonNull List<ProfileBean> list) {
+    public void showContactList(@NonNull List<Profile> list) {
 
         if (getActivity() == null) {
             return;
@@ -41,7 +41,7 @@ public class ContactsFragment extends ListFragment implements IContactListView {
             setEmptyText(getString(R.string.hint_no_such_contact));
         }
 
-        mContactsListAdapter = new ContactsListAdapter(new ArrayList<ProfileBean>(), getActivity().getLayoutInflater());
+        mContactsListAdapter = new ContactsListAdapter(new ArrayList<Profile>(), getActivity().getLayoutInflater());
         mContactsListAdapter.addAllItem(list);
         setListAdapter(mContactsListAdapter);
     }
@@ -61,7 +61,7 @@ public class ContactsFragment extends ListFragment implements IContactListView {
         mCategory = ARBITRARY;
     }
 
-    public ContactsFragment setCategory(ProfileBean.Category category) {
+    public ContactsFragment setCategory(Profile.Category category) {
         mCategory = category;
         return this;
     }
@@ -94,7 +94,7 @@ public class ContactsFragment extends ListFragment implements IContactListView {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (requestCode == ShowProfileViewImpl.RESULT_FOLLOW_STATE_CHANGED) {
+        if (resultCode == ShowProfileViewImpl.RESULT_FOLLOW_STATE_CHANGED) {
             getActivity().sendBroadcast(new Intent(REQUEST_SYNC));
         }
 
@@ -106,13 +106,15 @@ public class ContactsFragment extends ListFragment implements IContactListView {
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
-        ProfileBean profile = (ProfileBean) l.getAdapter().getItem(position);
+        Profile profile = (Profile) l.getAdapter().getItem(position);
 
         Intent intent = new Intent(getActivity(), ShowProfileViewImpl.class);
         intent.putExtra("username", profile.getUsername());
         startActivityForResult(intent, mCategory.ordinal());
     }
 
-
+    public void sync() {
+        mPresenter.performFetchContactsInfo(getContext(), mCategory);
+    }
 
 }

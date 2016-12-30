@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:fresco="http://schemas.android.com/tools">
+
+    <!--<ImageView-->
+            <!--android:id="@+id/img_list_item_message_contact_avatar"-->
+            <!--android:layout_marginStart="16dp"-->
+            <!--android:layout_marginEnd="8dp"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--android:layout_marginBottom="8dp"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:src="@drawable/avatar_default"-->
+            <!--android:layout_width="48dp"-->
+            <!--android:layout_height="48dp"/>-->
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/img_list_item_msg_avatar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        fresco:actualImageScaleType="focusCrop"
+        fresco:placeholderImage="@drawable/avatar_default"/>
+
+    <TextView
+            android:layout_toEndOf="@+id/img_list_item_msg_avatar"
+            android:layout_alignTop="@+id/img_list_item_msg_avatar"
+            android:id="@+id/lbl_list_item_msg_nickname"
+            android:text="Tnecesoc"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:layout_toEndOf="@+id/img_list_item_msg_avatar"
+            android:layout_alignBottom="@+id/img_list_item_msg_avatar"
+            android:id="@+id/lbl_list_item_latest_msg_content"
+            android:text="喵喵喵喵喵？"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:id="@+id/lbl_list_item_latest_msg_time"
+            android:layout_alignBaseline="@+id/lbl_list_item_msg_nickname"
+            android:layout_alignParentEnd="true"
+            android:text="8:15 PM"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:layout_alignParentEnd="true"
+            android:layout_alignBaseline="@+id/lbl_list_item_latest_msg_content"
+            android:id="@+id/lbl_list_item_new_msg_count"
+            android:background="@drawable/new_message_indicator"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="4dp"
+            android:textAlignment="center"
+            android:text="1"
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+</RelativeLayout>

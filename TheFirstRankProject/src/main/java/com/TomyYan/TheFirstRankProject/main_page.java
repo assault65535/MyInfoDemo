@@ -1,10 +1,10 @@
 package com.TomyYan.TheFirstRankProject;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import com.TomyYan.GlobalModel.Local.SessionHelper;
 
 /**
  * Created by dell on 2016/9/3.
@@ -14,12 +14,17 @@ public class main_page extends Activity{
     private ImageButton myCircleButton=null;
     private ImageButton personalButton=null;
     private ButtonListener buttonListener=null;
+    private SessionHelper sessionHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page);
-        Intent intent=getIntent();
-        user=intent.getStringExtra("user");
+//        Intent intent=getIntent();
+//        user=intent.getStringExtra("user");
+        //
+        sessionHelper = new SessionHelper(main_page.this);
+        user=sessionHelper.getSessionAttribute(SessionHelper.KEY_PHONE);
+        //
         buttonListener=new ButtonListener();
         myCircleButton=(ImageButton)findViewById(R.id.myCircle);
         personalButton=(ImageButton)findViewById(R.id.personal);

@@ -1,21 +1,23 @@
 package com.tnecesoc.MyInfoDemo.Modules.Homepage.View;
 
 import android.annotation.SuppressLint;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.tnecesoc.MyInfoDemo.Entity.Message;
 import com.tnecesoc.MyInfoDemo.R;
-import com.tnecesoc.MyInfoDemo.Utils.MyCircleFrame;
-import com.tnecesoc.MyInfoDemo.Utils.NavigateFrame;
+import com.tnecesoc.MyInfoDemo.Utils.*;
 import com.tnecesoc.MyInfoDemo.Widget.Adapter.ViewPagerAdapter;
 import com.tnecesoc.MyInfoDemo.Widget.Util.DisplayUtil;
 
@@ -23,20 +25,46 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, InstantMessageService.MsgObserver {
 
-    private PagerAdapter mPagerAdapter;
+    private int REQUEST_SEARCH_CONTACT = 1;
+    private int REQUEST_NEW_POST = 2;
+
+    private ViewPagerAdapter mPagerAdapter;
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
 
-    private NavigateFrame mNavigateFrame;
-    private MyCircleFrame mMyCircleFrame;
+
+    private HomeViewHolder mHomeViewHolder;
+    private NavigateViewHolder mNavigateViewHolder;
+    private MyCircleViewHolder mMyCircleViewHolder;
 
     private List<View> mTabViews;
     private List<ImageView> mIcons;
     private List<TextView> mTextViews;
 
     private float offset;
+
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            InstantMessageService.Binder binder = (InstantMessageService.Binder) service;
+            binder.setMsgObserver(MainActivity.this);
+            binder.setNeedToNotifyNewMsg(true);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
+
+    @Override
+    public void onNewMsg(Message msg) {
+
+        new SyncMsgCntTask(this, mNavigateViewHolder).execute();
+
+    }
 
     @SuppressWarnings("ConstantConditions")
     @Override
@@ -51,19 +79,64 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         initTabs();
 
+        Intent startIntent = new Intent(this, InstantMessageService.class);
+        startService(startIntent);
     }
 
     @Override
     public void onClick(View v) {
-        mNavigateFrame.onClick(this, v);
-        mMyCircleFrame.onClick(this, v);
+        mNavigateViewHolder.onClick(this, v);
+        mMyCircleViewHolder.onClick(this, v);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mNavigateViewHolder.onResume(mPagerAdapter.getItemByTitle(getString(R.string.tab_me)));
+
+        Intent bindIntend = new Intent(this, InstantMessageService.class);
+        bindService(bindIntend, serviceConnection, BIND_AUTO_CREATE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_SEARCH_CONTACT && resultCode == SearchContactActivity.RESULT_CONTACT_INTERESTED) {
+            mNavigateViewHolder.onCreate(mPagerAdapter.getItemByTitle(getString(R.string.tab_me)));
+        } else if (requestCode == REQUEST_NEW_POST && resultCode == 25252) {
+            mHomeViewHolder.sync(this, mPagerAdapter.getItemByTitle(getString(R.string.tab_home)));
+        }
+    }
+
+    @Override
+    protected void onStop() {
+
+        unbindService(serviceConnection);
+
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Intent stopIntent = new Intent(this, InstantMessageService.class);
+        stopService(stopIntent);
+        super.onDestroy();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == R.id.option_main_new_neighbor_chat) {
-            mMyCircleFrame.doCircleSearch(this);
+        switch (item.getItemId()) {
+            case R.id.option_main_new_neighbor_chat:
+                mMyCircleViewHolder.doCircleSearch(this);
+                break;
+            case R.id.option_main_new_contact:
+                startActivityForResult(new Intent(MainActivity.this, SearchContactActivity.class), REQUEST_SEARCH_CONTACT);
+                break;
+            case R.id.option_main_new_post:
+                mHomeViewHolder.doNewPost(this);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -80,20 +153,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @SuppressLint("InflateParams")
     private void initPages() {
 
-        final View homePageView = new TextView(this);
-        ((TextView) homePageView).setText("首页模块入口");
-        ((TextView) homePageView).setGravity(Gravity.CENTER);
+        final View homePageView = getLayoutInflater().inflate(R.layout.piece_home, null);
+        mHomeViewHolder = new HomeViewHolder(this, homePageView);
 
         final View chatsPageView = getLayoutInflater().inflate(R.layout.piece_my_circle, null);
-        mMyCircleFrame = new MyCircleFrame(this, chatsPageView, this);
+        mMyCircleViewHolder = new MyCircleViewHolder(this, chatsPageView, this);
 
         final View mePageView = getLayoutInflater().inflate(R.layout.activity_navigate, null);
-        mNavigateFrame = new NavigateFrame(mePageView, this);
+        mNavigateViewHolder = new NavigateViewHolder(mePageView, this);
 
         mPagerAdapter = new ViewPagerAdapter(new LinkedHashMap<String, View>() {{
-            put("Home", homePageView);
-            put("Chats", chatsPageView);
-            put("Me", mePageView);
+            put(getString(R.string.tab_home), homePageView);
+            put(getString(R.string.tab_chats), chatsPageView);
+            put(getString(R.string.tab_me), mePageView);
         }});
 
         mViewPager.setAdapter(mPagerAdapter);
@@ -161,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        mIcons.get(0).setAlpha(1.0f);
-        mTextViews.get(0).setTextColor(DisplayUtil.getHalftonePrimary(1.0f));
+        mIcons.get(mTabLayout.getSelectedTabPosition()).setAlpha(1.0f);
+        mTextViews.get(mTabLayout.getSelectedTabPosition()).setTextColor(DisplayUtil.getHalftonePrimary(1.0f));
     }
 }

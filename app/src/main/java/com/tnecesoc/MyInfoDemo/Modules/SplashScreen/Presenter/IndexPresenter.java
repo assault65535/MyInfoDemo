@@ -1,6 +1,9 @@
 package com.tnecesoc.MyInfoDemo.Modules.SplashScreen.Presenter;
 
+import android.content.Context;
+import android.os.AsyncTask;
 import com.tnecesoc.MyInfoDemo.GlobalModel.Local.SessionHelper;
+import com.tnecesoc.MyInfoDemo.Modules.ProfileModule.Messages.Task.SyncMsgTask;
 import com.tnecesoc.MyInfoDemo.Modules.SplashScreen.View.ILoadingView;
 import com.tnecesoc.MyInfoDemo.Modules.SplashScreen.View.IndexActivity;
 
@@ -20,24 +23,26 @@ public class IndexPresenter{
         view = activity;
     }
 
-    public void performIndexing() {
-
-//        doIndex();
+    public void performIndexing(final Context context) {
 
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                doIndex();
+                doIndex(context);
             }
         }, 2000);
 
     }
 
-    private void doIndex() {
+    private void doIndex(Context context) {
         if (helper.isOnline()) {
+
             view.showResume();
+
         } else {
+
             view.requestLogin();
+
         }
     }
 

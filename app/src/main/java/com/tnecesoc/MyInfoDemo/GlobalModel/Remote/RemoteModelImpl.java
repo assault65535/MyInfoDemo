@@ -33,5 +33,4 @@ public abstract class RemoteModelImpl {
     protected <T> T doQueryForObject(TypeToken<T> tClass, HttpUtil.HttpErrorListener listener) {
         return HttpUtil.sendPostRequestForResult(tClass, getUrl(), null, parameters, listener);
     }
-
 }

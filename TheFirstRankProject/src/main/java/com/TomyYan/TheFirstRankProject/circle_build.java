@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import com.TomyYan.GlobalModel.Local.SessionHelper;
+import com.TomyYan.TheFirstRankProject.R;
 
 /**
  * Created by dell on 2016/9/10.
@@ -24,11 +26,15 @@ public class circle_build extends Activity{
     private Intent intent=null;
     private Intent intentP=null;
     private ButtonListener buttonListener=null;
+    private SessionHelper sessionHelper;
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.circle_build);
-        intent=getIntent();
-        user=intent.getStringExtra("user");
+//        intent=getIntent();
+//        user=intent.getStringExtra("user");
+        sessionHelper = new SessionHelper( circle_build.this);
+        user=sessionHelper.getSessionAttribute(SessionHelper.KEY_PHONE);
+
         intentP=new Intent();
         buttonListener=new ButtonListener();
         haveBuild=(ImageButton)findViewById(R.id.haveBuild);
@@ -47,6 +53,14 @@ public class circle_build extends Activity{
                 intentP.putExtra("user", user);
                 intentP.setClass(circle_build.this, have_build.class);
                 circle_build.this.startActivity(intentP);
+
+            } else if (i == R.id.build_back) {
+                Intent intent = new Intent();
+                intent.putExtra("user", user);
+//                intent.setClass(circle_build.this, my_circle.class);
+//                circle_build.this.startActivity(intent);
+                finish();
+
             } else if (i == R.id.build_sure) {
                 buildCircleName = buildName.getText().toString();
                 buildCircleIntroduce = buildIntroduce.getText().toString();
@@ -61,8 +75,6 @@ public class circle_build extends Activity{
                     //System.out.println(NameAndIntroduce);
                 }
 
-            } else if (i == R.id.build_back) {
-                finish();
             }
         }
     }
