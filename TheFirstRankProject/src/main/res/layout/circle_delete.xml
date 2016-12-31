@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/circle_delete_top"
+        android:background="@color/topColor"
+        android:text="圈名"
+        android:textSize="26dp"
+        android:textColor="@color/textColor"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"/>
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:background="#00000000"
+        android:src="@drawable/black"
+        android:id="@+id/circle_delete_back"
+        android:layout_alignParentTop="true" android:layout_alignParentStart="true"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/circle_delete_img"
+        android:src="@drawable/pic"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/circle_delete_top"
+        android:layout_alignParentStart="true"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="圈介绍"
+        android:textColor="@color/white"
+        android:background="@color/circle_enjoy_introduce"
+        android:textSize="25dp"
+        android:gravity="center"
+        android:id="@+id/textView" android:layout_below="@+id/circle_delete_img"
+        android:layout_alignParentStart="true"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="100dp"
+        android:text="圈介绍"
+        android:id="@+id/circle_delete_introduce"
+        android:layout_below="@+id/textView" android:layout_alignParentStart="true"/>
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:text="删除该圈"
+        android:background="@drawable/buildmycirclebuttom"
+        android:id="@+id/circle_delete_sure"
+        android:layout_below="@+id/circle_delete_introduce"
+        android:layout_centerHorizontal="true"/>
+</RelativeLayout>

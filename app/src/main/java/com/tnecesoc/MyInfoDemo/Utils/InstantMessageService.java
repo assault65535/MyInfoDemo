@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.widget.Toast;
 import com.google.gson.Gson;
 import com.tnecesoc.MyInfoDemo.Entity.Message;
 import com.tnecesoc.MyInfoDemo.Entity.Profile;
@@ -18,6 +19,8 @@ import com.tnecesoc.MyInfoDemo.Modules.ProfileModule.Messages.Model.LocalMsgHelp
 import com.tnecesoc.MyInfoDemo.R;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+
+import static com.tnecesoc.MyInfoDemo.BuildConfig.DEBUG;
 
 public class InstantMessageService extends Service {
 
@@ -85,10 +88,10 @@ public class InstantMessageService extends Service {
             client = new MqttClient(Host.BROKER_HOST, me, memPer);
 
             MqttConnectOptions opt = new MqttConnectOptions();
-            opt.setAutomaticReconnect(true);
+            opt.setAutomaticReconnect(false);
+            opt.setConnectionTimeout(2);
             client.connect(opt);
 
-            System.out.println("connect succeed");
 
             client.subscribe(PRIVATE_CHAT_TOPIC, 1, new IMqttMessageListener() {
                 @Override
@@ -121,7 +124,9 @@ public class InstantMessageService extends Service {
 
                     Message msg = gson.fromJson(new String(message.getPayload()), Message.class);
 
-                    System.out.println("debug: message arrived: " + msg);
+                    if (DEBUG) {
+                        System.out.println("debug: message arrived: " + msg);
+                    }
 
                     if (observer != null) {
 
@@ -138,11 +143,11 @@ public class InstantMessageService extends Service {
                 }
             });
 
-
-            System.out.println("subscribe succeed");
-
         } catch (MqttException e) {
             e.printStackTrace();
+
+            Toast.makeText(this, R.string.hint_network_unavailable, Toast.LENGTH_SHORT).show();
+
         }
 
         initForForeground();

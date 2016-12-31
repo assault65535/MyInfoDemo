@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" android:background="#6495ed">
+
+    <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/top"
+            android:padding="10dp"
+            android:background="#6495ed"
+            android:stretchColumns="1">
+        <TableRow>
+            <ImageButton
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/back"
+                    android:layout_height="40dp"
+                    android:layout_width="40dp"
+                    android:background="#00000000"
+                    android:src="@drawable/black"/>
+            <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:textColor="#ffffff"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="26dp"
+                    android:text="输入帖子内容"/>
+            <TextView
+                    android:layout_height="40dp"
+                    android:layout_width="40dp"
+                    android:layout_marginRight="10dp"
+                    android:background="#00000000"/>
+        </TableRow>
+    </TableLayout>
+
+    <Button
+            android:id="@+id/send"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:minWidth="80dp"
+            android:layout_weight="2"
+            android:layout_marginRight="5dp"
+            android:text="发送" android:layout_below="@+id/top" android:layout_centerHorizontal="true"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="     标题"
+            android:id="@+id/post"
+            android:textColor="#ffffff" android:textSize="19dp"
+            android:layout_below="@+id/send" android:layout_alignParentStart="true"/>
+    <EditText
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+            android:background="#ffffff" android:id="@+id/et1"
+            android:layout_below="@+id/post" android:layout_centerHorizontal="true"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="     内容"
+            android:id="@+id/content"
+            android:textColor="#ffffff" android:textSize="19dp"
+            android:layout_marginTop="47dp" android:layout_below="@+id/et1" android:layout_alignParentStart="true"/>
+    <EditText
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:background="#ffffff" android:id="@+id/et2"
+            android:textStyle="normal" android:layout_below="@+id/content" android:layout_centerHorizontal="true"/>
+</RelativeLayout>
